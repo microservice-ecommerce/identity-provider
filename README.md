@@ -82,11 +82,13 @@ Assuming an average request size of 552 bytes (as calculated for storage per use
 
 Read Bandwidth: 
 = Read Requests/second * Average Request Size
+
 $$
 ReadBandwidth= 57 \space requests/second \times 552 \space bytes/request = 31,464 \space bytes/second 
 $$
 
 Convert KB:
+
 $$
 ReadBandwidth= \frac{31,464 \space bytes/second}{1024 \space KB} = 31,5 \space KB/second
 $$
@@ -96,11 +98,13 @@ $$
 
 ### Write Bandwidth:
 ------------------------
+
 $$
 WriteBandwidth= 173 \space requests/second \times 552 \space bytes/request = 95,496 \space bytes/second 
 $$
 
 Convert KB: 
+
 $$
 WriteBandwidth= \frac{95,496 \space bytes/second}{1024 \space KB} = 93.33 \space KB/second
 $$
