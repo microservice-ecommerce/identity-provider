@@ -149,8 +149,6 @@ $$
 
 ## API DESIGN 
 
-# API DESIGN - WRITE
-
 ## 1. User Registration
 
 - **Endpoint:** `/register`
@@ -274,8 +272,8 @@ $$
 - **Endpoint:** `/user/password`
 - **Method:** `PUT`
 - **Description:** Changes the user's password.
-- **Request Header:**
-  - `Authorization: Bearer <session_token>`
+- **Request Cookie:**
+  - `access_token: <session_token>`
 - **Request Body:**
   ```json
   {
