@@ -27,6 +27,7 @@
     - Each user read info 1 time a day 
 
      This give 15 million users login per day
+     
 $$
 5 \space million \times 3 \space login \space times = 15 \space million/day
 $$
