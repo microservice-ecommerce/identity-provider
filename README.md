@@ -50,3 +50,91 @@ Write = 3 x Read => This is write-heavy system
 
 
 ### Storage 
+
+**Account**
+- int_account_id : BIGINT => 8 bytes
+- str_email: VARCHAR(10) = > 10 bytes
+- str_hashed_password: VARCHAR(128) => 128 bytes
+- str_password_salt: VARCHAR(128) => 128 bytes
+- str_last_login_ip: VARCHAR(128) => 128 bytes 
+- dt_created_date: DATETIME  => 8 bytes
+- dt_modified_date: DATETIME, => 8 bytes
+- dt_password_changed: DATETIME => 8 bytes
+- dt_last_login: DATETIME  => 8 bytes 
+
+=> 8+10+128+128+128+8+8+8+8= 552 bytes
+
+Total: 552 bytes per user 
+
+Total Storage = Number of Users * Storage per User
+
+$$
+Total storage = 50 \space million * 552 \space bytes  = 27.6 \space GB 
+$$
+
+### Bandwidth 
+
+
+#### Read Bandwidth:
+------------------------
+
+Assuming an average request size of 552 bytes (as calculated for storage per user), the read bandwidth can be estimated as follows:
+
+Read Bandwidth: 
+= Read Requests/second * Average Request Size
+$$
+ReadBandwidth= 57 \space requests/second \times 552 \space bytes/request = 31,464 \space bytes/second 
+$$
+
+Convert KB:
+$$
+ReadBandwidth= \frac{31,464 \space bytes/second}{1024 \space KB} = 31,5 \space KB/second
+$$
+
+
+----   
+
+### Write Bandwidth:
+------------------------
+$$
+WriteBandwidth= 173 \space requests/second \times 552 \space bytes/request = 95,496 \space bytes/second 
+$$
+
+Convert KB: 
+$$
+WriteBandwidth= \frac{95,496 \space bytes/second}{1024 \space KB} = 93.33 \space KB/second
+$$
+
+### Table Estimate: 
+------------------------
+# System Estimates Overview
+
+## Traffic
+| Metric                   | Value                   |
+|--------------------------|-------------------------|
+| Total Users              | 50 million              |
+| Daily Active Users (DAU) | 5 million               |
+| Login/Registration RPS   | 173 (write-heavy)       |
+| Read RPS                 | 57                      |
+
+## Storage
+| Data Element              | Size (bytes) |
+|---------------------------|--------------|
+| int_account_id (BIGINT)    | 8            |
+| str_email (VARCHAR(10))    | 10           |
+| str_hashed_password        | 128          |
+| str_password_salt          | 128          |
+| str_last_login_ip          | 128          |
+| dt_created_date (DATETIME) | 8            |
+| dt_modified_date (DATETIME)| 8            |
+| dt_password_changed        | 8            |
+| dt_last_login (DATETIME)   | 8            |
+| **Total per User**         | **552**      |
+
+**Total Storage Estimate: 27.6 GB**
+
+## Bandwidth
+| Operation          | Requests/second | Average Request Size | Bandwidth (KB/second) |
+|--------------------|------------------|----------------------|------------------------|
+| Read               | 57               | 552 bytes            | ~30.72                 |
+| Write              | 173              | 552 bytes            | ~93.3                  |
