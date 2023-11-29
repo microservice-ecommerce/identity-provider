@@ -235,3 +235,67 @@ $$
   - **Internal Server Error Response:**
     - **Status Code:** 500 Internal Server Error
     - **Description:** Other server-side errors.
+
+
+
+## 4. Update User Profile  
+- **Endpoint:** `/user/profile`
+- **Method:** `PUT`
+- **Description:** Updates the user's profile information.
+- **Request Cookie:**
+  - `access_token: <session_token>`
+- **Request Body:**
+  ```json
+  {
+    "email": "new_email@example.com",
+    "password": "new_password",
+    "additional_fields": "..."
+  }
+
+- **Response:**
+  - **Success Response:**
+    - **Status Code:** 200 OK
+    - **Description:** The update is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or contains invalid data.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+## 5. Change Password
+
+- **Endpoint:** `/user/password`
+- **Method:** `PUT`
+- **Description:** Changes the user's password.
+- **Request Header:**
+  - `Authorization: Bearer <session_token>`
+- **Request Body:**
+  ```json
+  {
+    "old_password": "current_password",
+    "new_password": "new_password"
+  }
+- **Response:**
+  
+  - **Success Response:**
+    - **Status Code:** 200 OK
+    - **Description:** The password change is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or contains invalid data.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
