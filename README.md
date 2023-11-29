@@ -97,7 +97,7 @@ $$
 
 ----   
 
-### Write Bandwidth:
+#### Write Bandwidth:
 ------------------------
 
 $$
@@ -143,3 +143,95 @@ $$
 |--------------------|------------------|----------------------|------------------------|
 | Read               | 57               | 552 bytes            | ~30.72                 |
 | Write              | 173              | 552 bytes            | ~93.3                  |
+
+
+
+
+## API DESIGN 
+
+# API DESIGN - WRITE
+
+## 1. User Registration
+
+- **Endpoint:** `/register`
+- **Method:** `POST`
+- **Description:** Registers a new user in the system.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "user_password",
+    "additional_fields": "..."
+  }
+  ```
+- **Response:**
+
+  - **Success Response:**
+    - **Status Code:** 201 Created
+    - **Description:** Registration is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or missing required fields.
+
+  - **Conflict Response:**
+    - **Status Code:** 409 Conflict
+    - **Description:** The email is already registered.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+
+
+## 2. User Login
+
+- **Endpoint:** `/login`
+- **Method:** `POST`
+- **Description:** Authenticates a user and generates a session token.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "user_password",
+    "mfa_code": "optional_mfa_code"
+  }
+- **Response:**
+
+  - **Success Response:**
+    - **Status Code:** 201 Created
+    - **Description:** Registration is successful.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** Authentication fails due to incorrect credentials or MFA code.
+
+  - **Not Found Response:**
+    - **Status Code:** 404 Not Found
+    - **Description:** The user account does not exist.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+
+## 3. User Logout
+
+- **Endpoint:** `/logout`
+- **Method:** `POST`
+- **Description:** Logs out the currently authenticated user, invalidating the session token.
+- **Request Cookie:**
+  - `access_token: <session_token>`
+  
+- **Response:**
+  - **Success Response:**
+    - **Status Code:** 204 No Content
+    - **Description:** Logout is successful.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
