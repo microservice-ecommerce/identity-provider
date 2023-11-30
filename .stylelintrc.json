@@ -1,0 +1,15 @@
+{
+  "plugins": ["stylelint-z-index-value-constraint"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-config-airbnb"
+  ],
+  "rules": {
+    "indentation": "tab",
+    "plugin/z-index-value-constraint": {
+      "min": 1,
+      "max": 10
+    }
+  }
+}
