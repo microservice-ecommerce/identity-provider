@@ -1,0 +1,77 @@
+{
+  "root": true,
+  "plugins": ["@nx", "@typescript-eslint", "import"],
+  "extends": ["eslint:recommended"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "linebreak-style": "off",
+        "indent": [
+          "error",
+          2,
+          {
+            "ignoredNodes": ["PropertyDefinition"]
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "enumMember",
+            "format": ["UPPER_CASE"]
+          },
+          {
+            "selector": "interface",
+            "format": ["PascalCase"],
+            "custom": {
+              "regex": "^I[A-Z]",
+              "match": true
+            }
+          },
+          {
+            "selector": "default",
+            "modifiers": ["destructured"],
+            "format": null
+          },
+          {
+            "selector": "memberLike",
+            "modifiers": ["private"],
+            "format": ["camelCase"],
+            "leadingUnderscore": "require"
+          },
+          {
+            "selector": "variable",
+            "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+          },
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["PascalCase"],
+            "prefix": ["is", "should", "has", "can", "did", "will"]
+          }
+        ],
+        "import/no-unresolved": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "require-jsdoc": "off",
+        "new-cap": "off",
+        "object-curly-spacing": "off",
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn"]
+          }
+        ],
+        "max-len": ["warn", 160],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "caughtErrorsIgnorePattern": "^_"
+          }
+        ]
+      }
+    }
+  ]
+}
