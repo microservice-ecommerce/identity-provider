@@ -1,73 +1,299 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# IDENTITY PROVIDER 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Functional Requirements: 
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+1. User Authentication
+2. User Authorization
+3. MFA 
+4. User management 
+5. Logging And Auditing 
+6. Password Policies 
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Non- Functional Requirements: 
+1. Security 
+2. High Availability
+3. Scalability
+4. Reliability
+5. Logging and Monitoring
 
-## Installation
+## Estimation And Contraints 
 
-```bash
-$ pnpm install
-```
+### Traffic 
+- Assume we have: 
+    - 50 million total users 
+    - 5 million daily active user (DAU)
+    - Each user 3 write time(login or register) a day 
+    - Each user read info 1 time a day 
 
-## Running the app
+     This give 15 million users login per day
 
-```bash
-# development
-$ pnpm run start
+$$
+5 \space million \times 3 \space login \space times = 15 \space million/day
+$$
 
-# watch mode
-$ pnpm run start:dev
+**Requests Per Second (RPS) for our system?**
 
-# production mode
-$ pnpm run start:prod
-```
+Read per second: 57 requests/second
 
-## Test
+$$
+\frac{5 \space million \times \space 1 \space time/day }{(24 \space hrs \times 3600 \space seconds)} = \sim 57 \space requests/second
+$$
 
-```bash
-# unit tests
-$ pnpm run test
 
-# e2e tests
-$ pnpm run test:e2e
+Write per Second: 173 requests/seconds
 
-# test coverage
-$ pnpm run test:cov
-```
+$$
+\frac{5 \space million \times \space 3 \space time/day }{(24 \space hrs \times 3600 \space seconds)} = \sim 173 \space requests/second
+$$
 
-## Support
+Write = 3 x Read => This is write-heavy system
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+### Storage 
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Account**
+- int_account_id : BIGINT => 8 bytes
+- str_email: VARCHAR(10) = > 10 bytes
+- str_hashed_password: VARCHAR(128) => 128 bytes
+- str_password_salt: VARCHAR(128) => 128 bytes
+- str_last_login_ip: VARCHAR(128) => 128 bytes 
+- dt_created_date: DATETIME  => 8 bytes
+- dt_modified_date: DATETIME, => 8 bytes
+- dt_password_changed: DATETIME => 8 bytes
+- dt_last_login: DATETIME  => 8 bytes 
 
-## License
+=> 8+10+128+128+128+8+8+8+8= 552 bytes
 
-Nest is [MIT licensed](LICENSE).
+Total: 552 bytes per user 
+
+Total Storage = Number of Users * Storage per User
+
+$$
+Total storage = 50 \space million * 552 \space bytes  = 27.6 \space GB 
+$$
+
+### Bandwidth 
+
+
+#### Read Bandwidth:
+------------------------
+
+Assuming an average request size of 552 bytes (as calculated for storage per user), the read bandwidth can be estimated as follows:
+
+Read Bandwidth: 
+= Read Requests/second * Average Request Size
+
+$$
+ReadBandwidth= 57 \space requests/second \times 552 \space bytes/request = 31,464 \space bytes/second 
+$$
+
+Convert KB:
+
+$$
+ReadBandwidth= \frac{31,464 \space bytes/second}{1024 \space KB} = 31,5 \space KB/second
+$$
+
+
+----   
+
+#### Write Bandwidth:
+------------------------
+
+$$
+WriteBandwidth= 173 \space requests/second \times 552 \space bytes/request = 95,496 \space bytes/second 
+$$
+
+Convert KB: 
+
+$$
+WriteBandwidth= \frac{95,496 \space bytes/second}{1024 \space KB} = 93.33 \space KB/second
+$$
+
+
+------------------------
+# System Estimates Overview
+
+## Traffic
+| Metric                   | Value                   |
+|--------------------------|-------------------------|
+| Total Users              | 50 million              |
+| Daily Active Users (DAU) | 5 million               |
+| Login/Registration RPS   | 173 (write-heavy)       |
+| Read RPS                 | 57                      |
+
+## Storage
+| Data Element              | Size (bytes) |
+|---------------------------|--------------|
+| int_account_id (BIGINT)    | 8            |
+| str_email (VARCHAR(10))    | 10           |
+| str_hashed_password        | 128          |
+| str_password_salt          | 128          |
+| str_last_login_ip          | 128          |
+| dt_created_date (DATETIME) | 8            |
+| dt_modified_date (DATETIME)| 8            |
+| dt_password_changed        | 8            |
+| dt_last_login (DATETIME)   | 8            |
+| **Total per User**         | **552**      |
+
+**Total Storage Estimate: 27.6 GB**
+
+## Bandwidth
+| Operation          | Requests/second | Average Request Size | Bandwidth (KB/second) |
+|--------------------|------------------|----------------------|------------------------|
+| Read               | 57               | 552 bytes            | ~30.72                 |
+| Write              | 173              | 552 bytes            | ~93.3                  |
+
+
+
+
+## API DESIGN 
+
+## 1. User Registration
+
+- **Endpoint:** `/register`
+- **Method:** `POST`
+- **Description:** Registers a new user in the system.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "user_password",
+    "additional_fields": "..."
+  }
+  ```
+- **Response:**
+
+  - **Success Response:**
+    - **Status Code:** 201 Created
+    - **Description:** Registration is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or missing required fields.
+
+  - **Conflict Response:**
+    - **Status Code:** 409 Conflict
+    - **Description:** The email is already registered.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+
+
+## 2. User Login
+
+- **Endpoint:** `/login`
+- **Method:** `POST`
+- **Description:** Authenticates a user and generates a session token.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "user_password",
+    "mfa_code": "optional_mfa_code"
+  }
+- **Response:**
+
+  - **Success Response:**
+    - **Status Code:** 201 Created
+    - **Description:** Registration is successful.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** Authentication fails due to incorrect credentials or MFA code.
+
+  - **Not Found Response:**
+    - **Status Code:** 404 Not Found
+    - **Description:** The user account does not exist.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+
+## 3. User Logout
+
+- **Endpoint:** `/logout`
+- **Method:** `POST`
+- **Description:** Logs out the currently authenticated user, invalidating the session token.
+- **Request Cookie:**
+  - `access_token: <session_token>`
+  
+- **Response:**
+  - **Success Response:**
+    - **Status Code:** 204 No Content
+    - **Description:** Logout is successful.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+
+
+## 4. Update User Profile  
+- **Endpoint:** `/user/profile`
+- **Method:** `PUT`
+- **Description:** Updates the user's profile information.
+- **Request Cookie:**
+  - `access_token: <session_token>`
+- **Request Body:**
+  ```json
+  {
+    "email": "new_email@example.com",
+    "password": "new_password",
+    "additional_fields": "..."
+  }
+
+- **Response:**
+  - **Success Response:**
+    - **Status Code:** 200 OK
+    - **Description:** The update is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or contains invalid data.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
+
+## 5. Change Password
+
+- **Endpoint:** `/user/password`
+- **Method:** `PUT`
+- **Description:** Changes the user's password.
+- **Request Cookie:**
+  - `access_token: <session_token>`
+- **Request Body:**
+  ```json
+  {
+    "old_password": "current_password",
+    "new_password": "new_password"
+  }
+- **Response:**
+  
+  - **Success Response:**
+    - **Status Code:** 200 OK
+    - **Description:** The password change is successful.
+
+  - **Bad Request Response:**
+    - **Status Code:** 400 Bad Request
+    - **Description:** The request is malformed or contains invalid data.
+
+  - **Unauthorized Response:**
+    - **Status Code:** 401 Unauthorized
+    - **Description:** The session token is invalid or expired.
+
+  - **Internal Server Error Response:**
+    - **Status Code:** 500 Internal Server Error
+    - **Description:** Other server-side errors.
