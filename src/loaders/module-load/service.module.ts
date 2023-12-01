@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { AppModule, UserModule } from '../../modules/routes'
+import {  AuthModule, UserModule } from '../../modules/routes'
 
 
 @Module({
-  imports: [AppModule, UserModule]
+  imports: [AuthModule, UserModule]
 })
 export class ServiceModule {}
