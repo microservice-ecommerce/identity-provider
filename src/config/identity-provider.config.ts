@@ -11,8 +11,8 @@ export class Configuration {
   readonly HOST = 'localhost'
 
   @IsInt()
-  readonly PORT = Number(5776)
-  
+  readonly PORT = Number(3002)
+
   @IsInt()
   readonly REDIS_PORT = parseInt(process.env['REDIS_PORT'] ?? '6379')
 
