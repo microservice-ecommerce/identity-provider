@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { IUserPort } from "../core";
+import { IAuthPort } from "../core";
 
 @Injectable()
-export class UserRepository implements IUserPort{
+export class AuthRepository implements IAuthPort{
   constructor(){}
   getAll(): string{
     return 'GET ALL USERS'
