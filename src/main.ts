@@ -1,6 +1,13 @@
+import { IdentityProviderConfig } from './config/identity-provider.config';
 import { ServerApplication } from './loaders/server'
-;(async (): Promise<void> => {
-  await runApplication()
+import { ClusterService } from './shared/services/cluster.service';
+; (async (): Promise<void> => {
+  if(IdentityProviderConfig.NODE_ENV === 'production'){
+    ClusterService.clusterize(runApplication);
+  }
+  else{
+    runApplication()
+  }
 })()
 
 async function runApplication(): Promise<void> {

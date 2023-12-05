@@ -16,10 +16,14 @@ export default class ValidationPipe implements PipeTransform<any> {
       throw new BadRequestException("No data submitted");
     }
 
+
     const { metatype } = metadata;
+
+
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
+
     const object = plainToClass(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {

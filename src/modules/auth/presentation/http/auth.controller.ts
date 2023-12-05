@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Inject, Param, Post, UsePipes } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Param, Post, UseInterceptors, UsePipes } from "@nestjs/common";
 import { AUTH_SERVICE, IAuthUseCase } from "../../core";
 import { LoginRequest } from "../../core/dtos";
 import ValidatePipe from '../../../../shared/pipes/validation.pipe'
-
 @Controller('v1/auth')
 export class AuthController{
   constructor(
