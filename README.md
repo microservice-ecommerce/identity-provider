@@ -297,3 +297,7 @@ $$
   - **Internal Server Error Response:**
     - **Status Code:** 500 Internal Server Error
     - **Description:** Other server-side errors.
+
+
+### Clean Architecture
+https://yoan-thirion.gitbook.io/knowledge-base/software-craftsmanship/code-katas/clean-architecture

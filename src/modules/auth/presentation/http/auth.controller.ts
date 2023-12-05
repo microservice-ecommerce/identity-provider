@@ -1,16 +1,17 @@
-import { Controller, Get, Inject, Param } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Param, Post, UsePipes } from "@nestjs/common";
 import { AUTH_SERVICE, IAuthUseCase } from "../../core";
+import { LoginRequest } from "../../core/dtos";
+import ValidatePipe from '../../../../shared/pipes/validation.pipe'
 
-
-
-@Controller('auth')
+@Controller('v1/auth')
 export class AuthController{
   constructor(
     @Inject(AUTH_SERVICE)
     private readonly _authService: IAuthUseCase){}
 
-  @Get()
-  public getAll(){
-    return this._authService.getAll()
+  @Post('login')
+  @UsePipes(new ValidatePipe())
+  public login(@Body() request: LoginRequest){
+    return this._authService.login(request)
   }
 }

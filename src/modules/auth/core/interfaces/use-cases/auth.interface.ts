@@ -1,3 +1,5 @@
+import { LoginRequest } from "../../dtos";
+
 export interface IAuthUseCase{
-   getAll(): string
+   login(request:LoginRequest)
 }

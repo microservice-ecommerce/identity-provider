@@ -28,6 +28,22 @@ export class Configuration {
   @IsString()
   readonly IO_REDIS_KEY = 'IORedis'
 
+
+  @IsInt()
+  readonly DB_PORT = parseInt(process.env['DB_PORT'] ?? '3306')
+
+  @IsString()
+  readonly DB_NAME = process.env['DB_NAME'] ?? 'H3IdentityProviderDB'
+
+  @IsString()
+  readonly DB_PASSWORD = process.env['DB_PASSWORD'] ?? '123@'
+
+  @IsString()
+  readonly DB_USERNAME = process.env['DB_USERNAME'] ?? 'root'
+
+  @IsString()
+  readonly DB_HOST = process.env['DB_HOST'] ?? 'localhost'
+
   @IsString()
   readonly NODE_ENV = process.env['NODE_ENV'] ?? 'development'
 
