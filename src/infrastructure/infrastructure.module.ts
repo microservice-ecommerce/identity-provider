@@ -1,5 +1,5 @@
 
-import { HttpExceptionFilter, LoggingInterceptor } from '@high3ar/common-api'
+import { HttpExceptionFilter, LoggingInterceptor, TransformInterceptor, RedisCacheModule } from '@high3ar/common-api'
 import { Global, Module, Provider } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
@@ -11,18 +11,23 @@ const providers: Provider[] = [
     useClass: LoggingInterceptor
   },
   {
-    provide: APP_FILTER,
-    useClass: HttpExceptionFilter
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter
+  },
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: TransformInterceptor
   }
 ]
 
 @Global()
 @Module({
   imports: [
-    ConfigModule.forRoot({
+  ConfigModule.forRoot({
       expandVariables: true
     }),
     PersistenceModule,
+    RedisCacheModule
   ],
   providers: [...providers],
   exports: []

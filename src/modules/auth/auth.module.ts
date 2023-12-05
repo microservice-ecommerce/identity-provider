@@ -4,7 +4,6 @@ import { AuthService } from './application';
 import { AuthRepository } from './infrastructure';
 import { AuthController } from './presentation';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ModelBaseEntity } from 'src/shared/core/entities';
 
 const providers = [
   {
@@ -18,7 +17,7 @@ const providers = [
 ]
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity, ModelBaseEntity]) ],
+  imports: [TypeOrmModule.forFeature([AccountEntity]) ],
   controllers: [AuthController],
   providers: [...providers],
 })
