@@ -1,4 +1,4 @@
-export  class DatabaseColumn{
+export class DatabaseColumn{
 
   public static readonly CREATED_DATE : string = "dt_created_date";
 
