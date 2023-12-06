@@ -1,9 +1,11 @@
 import { ValidationPipe } from "@high3ar/common-api";
 import { Body, Controller, Inject, Post, UsePipes } from "@nestjs/common";
-import { ApiBody, ApiOkResponse, ApiOperation } from "@nestjs/swagger";
+import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AUTH_SERVICE, IAuthUseCase } from "../../core";
 import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "../../core/dtos";
+
 @Controller('v1/auth')
+@ApiTags("Authentication")
 export class AuthController{
   constructor(
     @Inject(AUTH_SERVICE)

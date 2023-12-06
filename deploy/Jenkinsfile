@@ -1,0 +1,29 @@
+node {
+   def commit_id
+   stage('Preparation') {
+     checkout scm
+     sh "git rev-parse --short HEAD > .git/commit-id"
+     commit_id = readFile('.git/commit-id').trim()
+   }
+   stage('test') {
+     def myTestContainer = docker.image('node:18')
+     myTestContainer.pull()
+     myTestContainer.inside {
+       sh 'npm install'
+       sh 'npm test'
+     }
+   }
+   stage('docker build/push') {
+     docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
+       def app = docker.build("ngocphupham/todolist:${commit_id}", '.').push()
+     }
+   }
+  stage('deploy'){
+    docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
+      def app = docker.image("ngocphupham/todolist:${commit_id}").push()
+      sh "docker pull ngocphupham/todolist:${commit_id}"
+      sh 'docker ps -a | grep my-todo && docker stop my-todo && docker rm my-todo || echo "No container found to stop"'
+      sh "docker run -d --name my-todo -p 3001:3002 ngocphupham/todolist:${commit_id}"
+    }
+  }
+}
