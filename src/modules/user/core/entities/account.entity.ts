@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IAccount } from "../interfaces";
 import { ModelBaseEntity } from "../../../../shared/core";
+import { UserEntity } from "./user.entity";
 @Entity(TableName.ACCOUNT)
 export class AccountEntity extends ModelBaseEntity {
   constructor(props: IAccount) {
@@ -13,6 +14,9 @@ export class AccountEntity extends ModelBaseEntity {
   @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
   id: number;
 
+  @OneToOne(() => UserEntity, (user) => user.account)
+  user: UserEntity;
+  
   @Unique(['email'])
   @Column({ name: DatabaseColumn.EMAIL })
   email: string;
@@ -31,4 +35,6 @@ export class AccountEntity extends ModelBaseEntity {
 
   @Column({ name: DatabaseColumn.LAST_LOGIN })
   lastLogin: Date;
+
+
 }

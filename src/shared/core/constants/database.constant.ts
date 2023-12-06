@@ -17,4 +17,17 @@ export class DatabaseColumn{
   public static readonly PASSWORD_CHANGED = "dt_password_changed";
 
   public static readonly LAST_LOGIN = "dt_last_login";
+
+  public static readonly ID_USER = "int_user_id";
+
+  public static readonly NAME = "str_name";
+
+  public static readonly PHONE_NUMBER = "str_phone_number";
+
+  public static readonly DATE_OF_BIRTH = "dt_date_of_birth";
+
+  public static readonly GENDER = "int_gender";
+
+public static readonly ADDRESS = "str_address";
+
 }

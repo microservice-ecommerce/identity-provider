@@ -1,5 +1,5 @@
 import { TypeOrmModule } from "@nestjs/typeorm";
-import TypeOrmConfig from "../../config/type-orm.config";
+import TypeOrmConfig from "../configuration/type-orm.config";
 import { Module } from "@nestjs/common";
 
 
