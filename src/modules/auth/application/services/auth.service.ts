@@ -4,8 +4,8 @@ import { IdentityProviderConfig } from "src/infrastructure/configuration/identit
 import { IAccountPort, IUserPort } from "../../../user/core/ports";
 import { IAuthUseCase } from '../../core';
 import { LoginRequest, RegisterRequest } from "../../core/dtos";
-import { InjectRepository } from "@nestjs/typeorm";
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from "src/modules/user/core/token";
+import { ConvertUtil } from "src/shared/utils/to-entity.util";
 
 @Injectable()
 export class AuthService implements IAuthUseCase{
@@ -24,7 +24,9 @@ export class AuthService implements IAuthUseCase{
   }
 
   public register(request: RegisterRequest) {
-    console.log("vaopooo")
+    const account = ConvertUtil.toAccountEntity(request.account);
+    this._accountRepository.create(account);
+    console.log(account);
     this._redisManager.set('test', 'test')
   }
 }

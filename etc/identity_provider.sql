@@ -1,10 +1,10 @@
 
 CREATE TABLE id_account (
     int_account_id BIGINT NOT NULL AUTO_INCREMENT,
-    str_email VARCHAR(10) NOT NULL UNIQUE,
-    str_hashed_password VARCHAR(128) NOT NULL,
-    str_password_salt VARCHAR(128) NOT NULL,
-    str_last_login_ip DATETIME NULL,
+    str_email VARCHAR(40) NOT NULL UNIQUE,
+    str_password VARCHAR(128) NOT NULL,
+    str_salt VARCHAR(128) NOT NULL,
+    str_last_login_ip VARCHAR(40) NULL,
     dt_created_date DATETIME NULL,
     dt_modified_date DATETIME NULL,
     dt_password_changed DATETIME NULL,
