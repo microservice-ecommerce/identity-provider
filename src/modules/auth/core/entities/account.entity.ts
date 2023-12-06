@@ -1,10 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
-import { NameTable } from "../../../../shared/core/constants/name-table.constant";
-import { ModelBaseEntity } from "../../../../shared/core/entities";
+import { TableName } from "../../../../shared/core/constants/name-table.constant";
 import { IAccount } from "../interfaces";
-
-@Entity(NameTable.ACCOUNT)
+import { ModelBaseEntity } from "../../../../shared/core";
+@Entity(TableName.ACCOUNT)
 export class AccountEntity extends ModelBaseEntity {
   constructor(props: IAccount) {
     super();

@@ -1,5 +1,5 @@
-import { IModelBase } from "../../../../shared/core/interfaces";
 
+import { IModelBase } from '@high3ar/common-api';
 export interface IAccount extends IModelBase{
   id?: number;
   email: string;
