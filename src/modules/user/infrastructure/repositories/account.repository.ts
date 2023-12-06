@@ -4,13 +4,16 @@ import { AccountEntity } from "../../core/entities";
 import { IAccountPort } from "../../core/ports";
 import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
+import { BaseAbstractRepository } from "src/shared/repositories/base.repository";
 
 @Injectable()
-export class AccountRepository implements IAccountPort {
+export class AccountRepository extends BaseAbstractRepository<AccountEntity> implements IAccountPort{
   constructor(
     @InjectRepository(AccountEntity)
-    private readonly _AccountRepository: Repository<AccountEntity>
-  ){}
+    private readonly _userRepository: Repository<AccountEntity>
+  ){
+    super(_userRepository);
+  }
 
   public getAll() : string {
     return  'ASDASD';

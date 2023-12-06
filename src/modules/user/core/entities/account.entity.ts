@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IAccount } from "../interfaces";
@@ -14,9 +14,9 @@ export class AccountEntity extends ModelBaseEntity {
   @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
   id: number;
 
-  @OneToOne(() => UserEntity, (user) => user.account)
-  user: UserEntity;
-  
+  @OneToOne(() => UserEntity, (user) => user.account, { eager: true })
+  user?: UserEntity;
+
   @Unique(['email'])
   @Column({ name: DatabaseColumn.EMAIL })
   email: string;
