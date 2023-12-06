@@ -10,6 +10,6 @@ const TypeOrmConfig: TypeOrmModuleOptions = {
   password: IdentityProviderConfig.DB_PASSWORD,
   database: IdentityProviderConfig.DB_NAME,
   entities: [join(__dirname, '../../**/core/entities/**.entity.js')],
-  synchronize: true,
+  synchronize: false,
 };
 export default TypeOrmConfig;

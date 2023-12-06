@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 
-import { IdentityProviderConfig } from '../config/identity-provider.config';
+import { IdentityProviderConfig } from '../infrastructure/configuration/identity-provider.config';
 import { RootModule } from './module-load/root.module';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -39,8 +39,11 @@ export class ServerApplication {
       .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup("/docs", app, document);
+
+    SwaggerModule.setup('api', app, document);    SwaggerModule.setup("/docs", app, document);
   }
+
+
 }
 
 

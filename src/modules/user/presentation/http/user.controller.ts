@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
-import { UserService } from "../../application/user.service";
+import { UserService } from "../../application/services/user.service";
 import { IUserUseCase } from "../../core/interfaces";
-import { USER_SERVICE } from "../../core";
+import { USER_SERVICE } from "../../core/token";
 
 
 @Controller('users')

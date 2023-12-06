@@ -1,4 +1,4 @@
-import { IdentityProviderConfig } from './config/identity-provider.config';
+import { IdentityProviderConfig } from './infrastructure/configuration/identity-provider.config';
 import { ServerApplication } from './loaders/server';
 import {ClusterService} from '@high3ar/common-api'
 (async (): Promise<void> => {
