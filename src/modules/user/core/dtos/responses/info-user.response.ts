@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { UserEntity } from "@user/core/entities";
 
-export class UserResponse{
+export class InfoUserResponse{
 
   @ApiProperty({
     name : "name",

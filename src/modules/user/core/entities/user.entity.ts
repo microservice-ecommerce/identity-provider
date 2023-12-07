@@ -14,7 +14,7 @@ export class UserEntity extends ModelBaseEntity {
   @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
   id: number;
 
-  @OneToOne(() => AccountEntity, {lazy: true})
+  @OneToOne(() => AccountEntity, (account) => account.user)
   @JoinColumn({ name: DatabaseColumn.ID_ACCOUNT })
   account: AccountEntity
 

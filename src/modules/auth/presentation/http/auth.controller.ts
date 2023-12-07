@@ -3,7 +3,7 @@ import { Body, Controller, Inject, Logger, Post } from "@nestjs/common";
 import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AUTH_SERVICE, IAuthUseCase } from "../../core";
 import { LoginRequest, LoginResponse, RegisterResponse } from "../../core/dtos";
-import { UserRequest } from "@user/core/dtos";
+import { UserRequest, UserResponse } from "@user/core/dtos";
 
 @Controller('v1/auth')
 @ApiTags("Authentication")
@@ -30,10 +30,10 @@ export class AuthController{
   })
   @ApiBody({ type: UserRequest, required: true })
   @ApiOkResponse({ description: 'Register Successful.', type: RegisterResponse })
-  public async register(@Body() request: UserRequest): Promise<CoreApiResponse<any>>{
+  public async register(@Body() request: UserRequest): Promise<CoreApiResponse<UserResponse>>{
     H3Logger.info('req :: GET ::  regiser user')
-    await this._authService.register(request)
+    const user = await this._authService.register(request)
     H3Logger.info('req :: GET ::  regiser user')
-    return CoreApiResponse.success( null,'Register Successful')
+    return CoreApiResponse.success(user)
   }
 }
