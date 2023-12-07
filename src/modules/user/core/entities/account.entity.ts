@@ -36,5 +36,8 @@ export class AccountEntity extends ModelBaseEntity {
   @Column({ name: DatabaseColumn.LAST_LOGIN })
   lastLogin: Date;
 
+  public isExist(): boolean{
+    return true;
+  }
 
 }

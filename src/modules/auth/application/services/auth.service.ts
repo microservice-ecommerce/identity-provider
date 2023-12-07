@@ -4,18 +4,17 @@ import { IdentityProviderConfig } from "src/infrastructure/configuration/identit
 import { IAccountPort, IUserPort } from "../../../user/core/ports";
 import { IAuthUseCase } from '../../core';
 import { LoginRequest, RegisterRequest } from "../../core/dtos";
-import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from "src/modules/user/core/token";
+import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from "src/modules/user/core/token";
 import { ConvertUtil } from "src/shared/utils/to-entity.util";
+import { IUserUseCase } from "@user/core/interfaces";
 
 @Injectable()
 export class AuthService implements IAuthUseCase{
   constructor(
     @Inject(IdentityProviderConfig.IO_REDIS_KEY)
     private readonly _redisManager: Redis,
-    @Inject(ACCOUNT_REPOSITORY)
-    private readonly _accountRepository: IAccountPort,
-    @Inject(USER_REPOSITORY)
-    private readonly _userRepository: IUserPort,
+    @Inject(USER_SERVICE)
+    private readonly _userService: IUserUseCase
   ){
   }
 
@@ -24,9 +23,6 @@ export class AuthService implements IAuthUseCase{
   }
 
   public register(request: RegisterRequest) {
-    const account = ConvertUtil.toAccountEntity(request.account);
-    this._accountRepository.create(account);
-    console.log(account);
-    this._redisManager.set('test', 'test')
+
   }
 }

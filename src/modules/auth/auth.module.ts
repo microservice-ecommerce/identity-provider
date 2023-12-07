@@ -4,8 +4,9 @@ import { AuthService } from './application';
 import { AuthController } from './presentation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountRepository, UserRepository } from '../user/infrastructure';
-import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '../user/core/token';
+import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from '../user/core/token';
 import { UserEntity } from '../user/core/entities';
+import { UserService } from '@user/application';
 
 const providers = [
   {
@@ -19,6 +20,10 @@ const providers = [
   {
     provide: USER_REPOSITORY,
     useClass: UserRepository
+  },
+  {
+    provide: USER_SERVICE,
+    useClass: UserService
   }
 ]
 
