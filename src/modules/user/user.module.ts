@@ -12,13 +12,17 @@ const providers = [
     useClass: UserService,
   },
   {
+    provide: ACCOUNT_REPOSITORY,
+    useClass: AccountRepository,
+  },
+  {
     provide: USER_REPOSITORY,
-    useClass: UserRepository,
+    useClass: UserRepository
   }
 ]
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity,AccountEntity, AccountRepository])],
+  imports: [TypeOrmModule.forFeature([UserEntity,AccountEntity])],
   controllers: [UserController],
   providers: [...providers],
 })

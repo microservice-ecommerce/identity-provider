@@ -1,7 +1,6 @@
-import { LoginRequest } from "src/modules/auth/core";
-import { AccountEntity, UserEntity } from "src/modules/user/core/entities";
-import {Builder} from 'builder-pattern';
-import { AccountRequest, UserRequest } from "src/modules/user/core/dtos";
+import { Builder } from 'builder-pattern';
+import { AccountRequest, UserRequest } from "@user/core/dtos";
+import { AccountEntity, UserEntity, } from "@user/core/entities";
 
 export class ConvertUtil {
   public static toAccountEntity(request: AccountRequest): AccountEntity{
@@ -15,5 +14,14 @@ export class ConvertUtil {
     .build();
   }
 
-
+  public static toUserEntity(request: UserRequest, account: AccountEntity): UserEntity{
+    return Builder(UserEntity)
+    .account(account)
+    .address(request.address)
+    .dateOfBirth(request.dateOfBirth)
+    .gender(request.gender)
+    .name(request.name)
+    .phoneNumber(request.phoneNumber)
+    .build();
+  }
 }

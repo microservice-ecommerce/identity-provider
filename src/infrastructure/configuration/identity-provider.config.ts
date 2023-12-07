@@ -1,4 +1,4 @@
-import { IsInt, IsString, validateSync } from 'class-validator'
+import { IsInt, IsString, isString, validateSync } from 'class-validator'
 export class Configuration {
   constructor(isExtends?: boolean) {
     if (isExtends) return
@@ -49,6 +49,18 @@ export class Configuration {
 
   @IsString()
   readonly GLOBAL_PREFIX_API = 'api'
+
+  @IsString()
+  readonly ACCESS_LOG_DIR =  './logs/action'
+
+  @IsString()
+  readonly ACTION_LOG_DIR =  './logs/action'
+
+  @IsString()
+  readonly APPLICATION_LOG_DIR =  './logs/application'
+
+  @IsString()
+  readonly AUDIT_LOG_DIR =  './logs/audit'
 }
 
 

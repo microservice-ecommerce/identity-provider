@@ -21,6 +21,8 @@ CREATE TABLE id_user (
     dt_date_of_birth DATETIME NULL,
     int_gender INT NOT NULL,
     str_address VARCHAR(60) NOT NULL,
+    dt_created_date DATETIME NULL,
+    dt_modified_date DATETIME NULL,
     CONSTRAINT `id_user_PK_int_user_id`  PRIMARY KEY (int_user_id),
     CONSTRAINT `id_user_FK_int_account_id` FOREIGN KEY (`int_account_id`) REFERENCES `id_account` (`int_account_id`)
 );

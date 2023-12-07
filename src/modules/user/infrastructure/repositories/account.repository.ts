@@ -19,4 +19,11 @@ export class AccountRepository extends BaseAbstractRepository<AccountEntity> imp
     return  'ASDASD';
   }
 
+  public findByEmail(email: string): Promise<AccountEntity> {
+      return this._userRepository.findOne({
+        where: {
+          email
+        }
+      });
+  }
 }
