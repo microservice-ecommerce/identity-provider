@@ -1,5 +1,5 @@
 import { Builder } from 'builder-pattern';
-import { AccountRequest, UserRequest } from "@user/core/dtos";
+import { AccountRequest, InfoUserRequest, UserRequest } from "@user/core/dtos";
 import { AccountEntity, UserEntity, } from "@user/core/entities";
 
 export class ConvertUtil {
@@ -14,7 +14,7 @@ export class ConvertUtil {
     .build();
   }
 
-  public static toUserEntity(request: UserRequest, account: AccountEntity): UserEntity{
+  public static toUserEntity(request: InfoUserRequest, account: AccountEntity): UserEntity{
     return Builder(UserEntity)
     .account(account)
     .address(request.address)

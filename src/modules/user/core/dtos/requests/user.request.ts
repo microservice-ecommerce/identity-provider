@@ -1,50 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsString, Min } from "class-validator";
-
+import { Type } from "class-transformer";
+import { IsNotEmpty, ValidateNested } from "class-validator";
+import { AccountRequest } from "./account.request";
+import { InfoUserRequest } from "./info-user.request";
 export class UserRequest{
 
-  @IsEmail()
   @IsNotEmpty()
   @ApiProperty({
-    name : "name",
-    description: "name of user",
-    example: "Ngoc Phu",
+    name: "account",
+    description: "account of user",
   })
-  name: string;
+  @ValidateNested()
+  @Type(() => AccountRequest)
+  account: AccountRequest;
 
-  @Min(10)
-  @IsNotEmpty()
-  @ApiProperty({
-    name: "phone_number",
-    description: "phone_number of user",
-    example: "000000000000",
-  })
-  phoneNumber: string;
 
   @IsNotEmpty()
   @ApiProperty({
-    name: "date_of_birth",
-    description: "date of birth of user",
-    example: "1999-01-01",
+    name: "user",
+    description: "infoUser of user",
   })
-  @IsDate()
-  dateOfBirth: Date;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  @ApiProperty({
-    name: "gender",
-    description: "gender of user",
-    example: "true ",
-  })
-  gender: boolean;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({
-    name: "address",
-    description: "address of user",
-    example: "Ha Noi",
-  })
-  address: string;
+  @ValidateNested()
+  @Type(() => InfoUserRequest)
+  infoUser: InfoUserRequest;
 }
