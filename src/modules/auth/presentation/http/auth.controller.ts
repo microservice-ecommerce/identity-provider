@@ -2,7 +2,8 @@ import {  CoreApiResponse, H3Logger, ValidationPipe } from "@high3ar/common-api"
 import { Body, Controller, Inject, Logger, Post } from "@nestjs/common";
 import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AUTH_SERVICE, IAuthUseCase } from "../../core";
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "../../core/dtos";
+import { LoginRequest, LoginResponse, RegisterResponse } from "../../core/dtos";
+import { UserRequest } from "@user/core/dtos";
 
 @Controller('v1/auth')
 @ApiTags("Authentication")
@@ -27,9 +28,9 @@ export class AuthController{
   @ApiOperation({
     summary: 'Register user',
   })
-  @ApiBody({ type: RegisterRequest, required: true })
+  @ApiBody({ type: UserRequest, required: true })
   @ApiOkResponse({ description: 'Register Successful.', type: RegisterResponse })
-  public async register(@Body() request: RegisterRequest): Promise<CoreApiResponse<any>>{
+  public async register(@Body() request: UserRequest): Promise<CoreApiResponse<any>>{
     H3Logger.info('req :: GET ::  regiser user')
     await this._authService.register(request)
     H3Logger.info('req :: GET ::  regiser user')
