@@ -3,10 +3,11 @@ import Redis from 'ioredis';
 import { IdentityProviderConfig } from "src/infrastructure/configuration/identity-provider.config";
 import { IAccountPort, IUserPort } from "../../../user/core/ports";
 import { IAuthUseCase } from '../../core';
-import { LoginRequest, RegisterRequest } from "../../core/dtos";
+import { LoginRequest } from "../../core/dtos";
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from "src/modules/user/core/token";
 import { ConvertUtil } from "src/shared/utils/to-entity.util";
 import { IUserUseCase } from "@user/core/interfaces";
+import { UserRequest } from "@user/core/dtos";
 
 @Injectable()
 export class AuthService implements IAuthUseCase{
@@ -22,7 +23,7 @@ export class AuthService implements IAuthUseCase{
     // const test = this._authRepository.save(account)
   }
 
-  public register(request: RegisterRequest) {
+  public register(request: UserRequest) {
 
   }
 }

@@ -1,6 +1,7 @@
-import { LoginRequest, RegisterRequest } from "../../dtos";
+import { UserRequest } from "@user/core/dtos";
+import { LoginRequest } from "../../dtos";
 
 export interface IAuthUseCase{
    login(request:LoginRequest)
-   register(request: RegisterRequest)
+   register(request: UserRequest)
 }
