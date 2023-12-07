@@ -155,7 +155,7 @@ $$
 - **Method:** `POST`
 - **Description:** Registers a new user in the system.
 - **Request Body:**
-  ```json
+```json
 {
   "account": {
     "email": "examplddde@example.com",
@@ -169,7 +169,7 @@ $$
     "address": "Ha Noi"
   }
 }
-  ```
+```
 - **Response:**
 
   - **Success Response:**
