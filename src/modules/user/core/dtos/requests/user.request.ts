@@ -17,7 +17,7 @@ export class UserRequest{
 
   @IsNotEmpty()
   @ApiProperty({
-    name: "user",
+    name: "info_user",
     description: "infoUser of user",
   })
   @ValidateNested()
