@@ -156,11 +156,19 @@ $$
 - **Description:** Registers a new user in the system.
 - **Request Body:**
   ```json
-  {
-    "email": "user@example.com",
-    "password": "user_password",
-    "additional_fields": "..."
+{
+  "account": {
+    "email": "examplddde@example.com",
+    "password": "123456"
+  },
+  "info_user": {
+    "name": "Ngoc Phu",
+    "phone_number": "1234567890",
+    "date_of_birth": "2023-11-12T08:00:23.719000",
+    "gender": true,
+    "address": "Ha Noi"
   }
+}
   ```
 - **Response:**
 
