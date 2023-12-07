@@ -23,7 +23,7 @@ export class AuthService implements IAuthUseCase{
     // const test = this._authRepository.save(account)
   }
 
-  public register(request: UserRequest) {
-
+  public async register(request: UserRequest) {
+    await this._userService.save(request);
   }
 }
