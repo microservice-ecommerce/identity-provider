@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ModelBaseEntity } from "../../../../shared/core";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
@@ -14,7 +14,8 @@ export class UserEntity extends ModelBaseEntity {
   @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
   id: number;
 
-  @OneToOne(() => AccountEntity, (account) => account.user)
+  @OneToOne(() => AccountEntity, {lazy: true})
+  @JoinColumn({ name: DatabaseColumn.ID_ACCOUNT })
   account: AccountEntity
 
   @Column({ name: DatabaseColumn.NAME })

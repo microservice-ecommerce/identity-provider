@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AUTH_REPOSITORY, AUTH_SERVICE, AccountEntity } from './core';
+import { AUTH_REPOSITORY, AUTH_SERVICE } from './core';
 import { AuthService } from './application';
 import { AuthController } from './presentation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountRepository, UserRepository } from '../user/infrastructure';
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from '../user/core/token';
-import { UserEntity } from '../user/core/entities';
+import { AccountEntity, UserEntity } from '../user/core/entities';
 import { UserService } from '@user/application';
 
 const providers = [
