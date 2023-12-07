@@ -7,7 +7,7 @@ import { LoginRequest } from "../../core/dtos";
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from "src/modules/user/core/token";
 import { ConvertUtil } from "src/shared/utils/to-entity.util";
 import { IUserUseCase } from "@user/core/interfaces";
-import { UserRequest } from "@user/core/dtos";
+import { UserRequest, UserResponse } from "@user/core/dtos";
 
 @Injectable()
 export class AuthService implements IAuthUseCase{
@@ -23,7 +23,8 @@ export class AuthService implements IAuthUseCase{
     // const test = this._authRepository.save(account)
   }
 
-  public async register(request: UserRequest) {
-    await this._userService.save(request);
+  public async register(request: UserRequest): Promise<UserResponse> {
+    const user = await this._userService.save(request);
+    return user;
   }
 }

@@ -1,39 +1,24 @@
 import { ApiProperty } from "@nestjs/swagger";
-
+import { IsNotEmpty } from "class-validator";
+import { AccountResponse } from "./account.response";
+import { InfoUserResponse } from "./info-user.response";
+import { AccountEntity, UserEntity } from "@user/core/entities";
 export class UserResponse{
+  @ApiProperty({
+    name: "account",
+    description: "account of user",
+  })
+  account: AccountResponse;
+
 
   @ApiProperty({
-    name : "name",
-    description: "name of user",
-    example: "Ngoc Phu",
+    name: "user",
+    description: "infoUser of user",
   })
-  name: string;
+  infoUser: InfoUserResponse;
 
-  @ApiProperty({
-    name: "phone_number",
-    description: "phone_number of user",
-    example: "000000000000",
-  })
-  phoneNumber: string;
-
-  @ApiProperty({
-    name: "date_of_birth",
-    description: "date of birth of user",
-    example: "1999-01-01",
-  })
-  dateOfBirth: Date;
-
-  @ApiProperty({
-    name: "gender",
-    description: "gender of user",
-    example: "true ",
-  })
-  gender: boolean;
-
-  @ApiProperty({
-    name: "address",
-    description: "address of user",
-    example: "Ha Noi",
-  })
-  address: string;
+  constructor(user: UserEntity, account: AccountEntity){
+    this.account = new AccountResponse(account);
+    this.infoUser = new InfoUserResponse(user);
+  }
 }
