@@ -16,7 +16,7 @@ export class InfoUserRequest{
   @ApiProperty({
     name: "phone_number",
     description: "phone_number of user",
-    example: "000000000000",
+    example: "1234567890",
   })
   phoneNumber: string;
 
@@ -24,7 +24,7 @@ export class InfoUserRequest{
   @ApiProperty({
     name: "date_of_birth",
     description: "date of birth of user",
-    example: "1999-01-01",
+    example: "2023-11-12T08:00:23.719000",
   })
   @IsDateString()
   dateOfBirth: Date;
