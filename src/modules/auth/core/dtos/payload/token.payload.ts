@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class LoginResponse{
+export class TokenPayload{
   @ApiProperty({
     name: "access_token",
     description: "access_token request resource",

@@ -4,8 +4,8 @@ import { DatabaseColumn } from "../../../../shared/core/constants/database.const
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IUser } from "../interfaces";
 import { AccountEntity } from "./account.entity";
-@Entity(TableName.USER)
-export class UserEntity extends ModelBaseEntity {
+@Entity(TableName.INFO_USER)
+export class InfoUserEntity extends ModelBaseEntity {
   constructor(props: IUser) {
     super();
     Object.assign(this, props);

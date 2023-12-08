@@ -1,7 +1,9 @@
-import { AccountRequest, UserRequest, UserResponse } from "@user/core/dtos"
+import { UserPayload, UserRequest } from "@user/core/dtos"
 
 export interface IUserUseCase{
    getAll(): string
 
-   save(request: UserRequest): Promise<UserResponse>
+   save(request: UserRequest): Promise<UserPayload>
+
+   findOneByEmail(email : string) : Promise<UserPayload>
 }

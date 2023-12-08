@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
 import { AccountResponse } from "./account.response";
 import { InfoUserResponse } from "./info-user.response";
-import { AccountEntity, UserEntity } from "@user/core/entities";
+import { AccountEntity, InfoUserEntity } from "@user/core/entities";
 export class UserResponse{
   @ApiProperty({
     name: "account",
@@ -17,7 +17,7 @@ export class UserResponse{
   })
   infoUser: InfoUserResponse;
 
-  constructor(user: UserEntity, account: AccountEntity){
+  constructor(user: InfoUserEntity, account: AccountEntity){
     this.account = new AccountResponse(account);
     this.infoUser = new InfoUserResponse(user);
   }

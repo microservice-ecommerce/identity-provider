@@ -26,4 +26,5 @@ export class AccountRepository extends BaseAbstractRepository<AccountEntity> imp
         }
       });
   }
+
 }

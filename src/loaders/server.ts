@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { initializeTransactionalContext } from 'typeorm-transactional';
+import * as process from 'node:process';
 
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { IdentityProviderConfig } from '../infrastructure/configuration/identity-provider.config';
@@ -26,8 +27,10 @@ export class ServerApplication {
       H3Logger.error(`🔥 Failed to start server, ${error.message}`);
       process.exit(1);
     });
+    // icon slave
 
     H3Logger.info(`🚀 Server running on http://${HOST}:${PORT}/${GLOBAL_PREFIX_API}`);
+    H3Logger.info(`👷 Worker running on  (${process.pid})`);
   }
 
   public static new(): ServerApplication {

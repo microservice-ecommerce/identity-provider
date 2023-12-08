@@ -3,14 +3,14 @@ import { IUserPort } from "../../core/ports";
 import { InjectRepository } from "@nestjs/typeorm";
 import { USER_REPOSITORY } from "../../core/token";
 import { Repository } from "typeorm";
-import { UserEntity } from "../../core/entities";
+import { InfoUserEntity } from "../../core/entities";
 import { BaseAbstractRepository } from "@high3ar/common-api";
 
 @Injectable()
-export class UserRepository extends BaseAbstractRepository<UserEntity> implements IUserPort{
+export class UserRepository extends BaseAbstractRepository<InfoUserEntity> implements IUserPort{
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly _userRepository: Repository<UserEntity>
+    @InjectRepository(InfoUserEntity)
+    private readonly _userRepository: Repository<InfoUserEntity>
   ){
     super(_userRepository);
   }

@@ -1,13 +1,12 @@
+import { ClusterService } from '@high3ar/common-api';
 import { IdentityProviderConfig } from './infrastructure/configuration/identity-provider.config';
 import { ServerApplication } from './loaders/server';
-import {ClusterService} from '@high3ar/common-api'
 (async (): Promise<void> => {
   if(IdentityProviderConfig.NODE_ENV === 'production'){
     ClusterService.clusterize(runApplication);
+    return;
   }
-  else{
-    runApplication()
-  }
+  runApplication();
 })()
 
 async function runApplication(): Promise<void> {
