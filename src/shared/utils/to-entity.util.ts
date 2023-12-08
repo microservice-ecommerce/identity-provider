@@ -1,6 +1,6 @@
 import { Builder } from 'builder-pattern';
 import { AccountRequest, InfoUserRequest, UserRequest } from "@user/core/dtos";
-import { AccountEntity, UserEntity, } from "@user/core/entities";
+import { AccountEntity, InfoUserEntity, } from "@user/core/entities";
 
 export class ConvertUtil {
   public static toAccountEntity(request: AccountRequest): AccountEntity{
@@ -10,12 +10,11 @@ export class ConvertUtil {
     .lastLogin(new Date())
     .lastLoginIp("asd")
     .passwordChanged(new Date())
-    .salt("password")
     .build();
   }
 
-  public static toUserEntity(request: InfoUserRequest, account: AccountEntity): UserEntity{
-    return Builder(UserEntity)
+  public static toInfoUserEntity(request: InfoUserRequest, account: AccountEntity): InfoUserEntity{
+    return Builder(InfoUserEntity)
     .account(account)
     .address(request.address)
     .dateOfBirth(request.dateOfBirth)

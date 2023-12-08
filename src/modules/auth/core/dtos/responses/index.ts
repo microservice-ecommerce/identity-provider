@@ -1,1 +1,1 @@
-export * from './login.response'
+export * from './token.response'

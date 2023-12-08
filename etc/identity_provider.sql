@@ -13,7 +13,7 @@ CREATE TABLE id_account (
 );
 
 
-CREATE TABLE id_user (
+CREATE TABLE id_info_user (
     int_user_id BIGINT NOT NULL AUTO_INCREMENT,
     int_account_id BIGINT NOT NULL,
     str_name VARCHAR(40) NOT NULL,

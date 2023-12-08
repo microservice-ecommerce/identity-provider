@@ -1,9 +1,10 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique} from "typeorm";
+import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { ModelBaseEntity } from "../../../../shared/core";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IAccount } from "../interfaces";
-import { ModelBaseEntity } from "../../../../shared/core";
-import { UserEntity } from "./user.entity";
+import { InfoUserEntity } from "./info-user.entity";
+import * as bcrypt from 'bcrypt';
 @Entity(TableName.ACCOUNT)
 export class AccountEntity extends ModelBaseEntity {
   constructor(props: IAccount) {
@@ -14,8 +15,8 @@ export class AccountEntity extends ModelBaseEntity {
   @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
   id: number;
 
-  @OneToOne(() => UserEntity, (user) => user.account, { eager: true })
-  user?: UserEntity;
+  @OneToOne(() => InfoUserEntity, (user) => user.account, { eager: true })
+  user?: InfoUserEntity;
 
   @Unique(['email'])
   @Column({ name: DatabaseColumn.EMAIL })
@@ -36,8 +37,9 @@ export class AccountEntity extends ModelBaseEntity {
   @Column({ name: DatabaseColumn.LAST_LOGIN })
   lastLogin: Date;
 
-  public isExist(): boolean{
-    return true;
+  @BeforeInsert()
+  public async hashPassword() {
+    this.salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, this.salt);
   }
-
 }
