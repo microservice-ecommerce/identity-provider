@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ModelBaseEntity } from "../../../../shared/core";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IUser } from "../interfaces";
 import { AccountEntity } from "./account.entity";
+import { ModelBaseEntity } from "@high3ar/common-api";
 @Entity(TableName.INFO_USER)
 export class InfoUserEntity extends ModelBaseEntity {
   constructor(props: IUser) {
