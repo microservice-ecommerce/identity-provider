@@ -1,4 +1,4 @@
-import { IsInt, IsString, isString, validateSync } from 'class-validator'
+import { IsIn, IsInt, IsString, isString, validateSync } from 'class-validator'
 export class Configuration {
   constructor(isExtends?: boolean) {
     if (isExtends) return
@@ -28,7 +28,6 @@ export class Configuration {
   @IsString()
   readonly IO_REDIS_KEY = 'IORedis'
 
-
   @IsInt()
   readonly DB_PORT = parseInt(process.env['DB_PORT'] ?? '3306')
 
@@ -46,6 +45,10 @@ export class Configuration {
 
   @IsString()
   readonly NODE_ENV = process.env['NODE_ENV'] ?? 'development'
+
+
+  @IsInt()
+  readonly ACCESS_TOKEN_EXPIRED = Number('86400')
 
   @IsString()
   readonly GLOBAL_PREFIX_API = 'api'

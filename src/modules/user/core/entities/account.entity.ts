@@ -1,10 +1,10 @@
 import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
-import { ModelBaseEntity } from "../../../../shared/core";
 import { DatabaseColumn } from "../../../../shared/core/constants/database.constant";
 import { TableName } from "../../../../shared/core/constants/table-name.constant";
 import { IAccount } from "../interfaces";
 import { InfoUserEntity } from "./info-user.entity";
 import * as bcrypt from 'bcrypt';
+import { ModelBaseEntity } from "@high3ar/common-api";
 @Entity(TableName.ACCOUNT)
 export class AccountEntity extends ModelBaseEntity {
   constructor(props: IAccount) {
