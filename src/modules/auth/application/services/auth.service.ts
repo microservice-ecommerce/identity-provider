@@ -41,16 +41,19 @@ export class AuthService implements IAuthUseCase {
     return new UserResponse(user.infoUser, user.account);
   }
 
-  public async refreshToken(req: Request): Promise<any> {
+  public async refreshToken(req: Request): Promise<TokenResponse> {
     const refreshToken = req.cookies[IdentityProviderConstant.NAME_REFRESH_TOKEN];
     if (!refreshToken) {
       H3Logger.error('Refresh token not found');
       throw new UnauthorizedException('Refresh token not found');
     }
 
-    const tokenPayload = await this._authHelper.verifyRefreshToken(refreshToken);
+    const tokenPayload = this._authHelper.verifyRefreshToken(refreshToken);
     const user = await this._userService.findOneByEmail(tokenPayload.email);
     const token = await this._authHelper.createToken(user, tokenPayload.exp);
+    this._authHelper.setCookies(req, token);
+
+    return new TokenResponse(token.accessToken, token.refreshToken, token.expiresInAccessToken);
   }
 
   private async _comparedPassword(password: string, user: UserPayload): Promise<boolean> {

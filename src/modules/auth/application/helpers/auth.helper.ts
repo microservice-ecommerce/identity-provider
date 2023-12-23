@@ -20,7 +20,7 @@ export class AuthHelper {
     private readonly _cacheService: CacheService,
   ) {}
   public async createToken(user: UserPayload, expiresInRefreshToken?: number): Promise<TokenPayload> {
-    const tokenPayload: EncodeTokenPayload = new EncodeTokenPayload(
+    const accessTokenPayload: EncodeTokenPayload = new EncodeTokenPayload(
       user.account.email,
       IdentityProviderConfig.TOKEN_CLAIM_AUD,
       IdentityProviderConfig.TOKEN_CLAIM_ISS,
@@ -31,17 +31,28 @@ export class AuthHelper {
       user.infoUser.gender + '',
     );
 
-    const createAccessToken = this._jwtService.signAsync(this._toObject(tokenPayload), {
+    const refreshTokenPayload: EncodeTokenPayload = new EncodeTokenPayload(
+      user.account.email,
+      IdentityProviderConfig.TOKEN_CLAIM_AUD,
+      IdentityProviderConfig.TOKEN_CLAIM_ISS,
+      expiresInRefreshToken || nowTimeNumber(),
+      user.account.email,
+      user.infoUser.name,
+      user.infoUser.address,
+      user.infoUser.gender + '',
+    );
+
+    const createAccessToken = this._jwtService.signAsync(this._toObject(accessTokenPayload), {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
       expiresIn: IdentityProviderConstant.ACCESS_TOKEN_EXPIRED,
     });
-    const createRefreshToken = this._jwtService.signAsync(this._toObject(tokenPayload), {
+    const createRefreshToken = this._jwtService.signAsync(this._toObject(refreshTokenPayload), {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
-      expiresIn: IdentityProviderConstant.REFRESH_TOKEN_EXPIRED,
+      expiresIn: expiresInRefreshToken || IdentityProviderConstant.REFRESH_TOKEN_EXPIRED,
     });
 
     const expiresInAT = nowTimeNumber() + IdentityProviderConstant.ACCESS_TOKEN_EXPIRED;
-    const expiresInRT = nowTimeNumber() + IdentityProviderConstant.REFRESH_TOKEN_EXPIRED;
+    const expiresInRT = expiresInRefreshToken || nowTimeNumber() + IdentityProviderConstant.REFRESH_TOKEN_EXPIRED;
 
     const [accessToken, refreshToken] = await Promise.all([createAccessToken, createRefreshToken]);
 
