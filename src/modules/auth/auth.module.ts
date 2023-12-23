@@ -9,6 +9,7 @@ import { AUTH_SERVICE } from './core/token';
 import { AuthController } from './presentation';
 import { AuthHelper } from './application/helpers';
 import { JwtModule } from '@nestjs/jwt';
+import { CacheService } from '@shared/services';
 
 const providers = [
   {
@@ -28,6 +29,7 @@ const providers = [
     useClass: UserService,
   },
   AuthHelper,
+  CacheService,
 ];
 
 @Module({

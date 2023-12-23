@@ -6,7 +6,11 @@ export class BaseTokenClaimPayload {
   exp: number; // Expiration Time
   nbf: number; // Not Before Time
   iss: string; // Issuer
-
+  email: string;
+  name: string;
+  phoneNumber: string;
+  gender: string;
+  address: string;
   // constructor(
   //   sub: string,
   //   jti: string,
