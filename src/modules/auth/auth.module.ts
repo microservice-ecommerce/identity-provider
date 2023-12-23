@@ -5,8 +5,10 @@ import { AccountEntity, InfoUserEntity } from '../user/core/entities';
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from '../user/core/token';
 import { AccountRepository, UserRepository } from '../user/infrastructure';
 import { AuthService } from './application';
-import { AUTH_SERVICE } from './core';
+import { AUTH_SERVICE } from './core/token';
 import { AuthController } from './presentation';
+import { AuthHelper } from './application/helpers';
+import { JwtModule } from '@nestjs/jwt';
 
 const providers = [
   {
@@ -19,16 +21,17 @@ const providers = [
   },
   {
     provide: USER_REPOSITORY,
-    useClass: UserRepository
+    useClass: UserRepository,
   },
   {
     provide: USER_SERVICE,
-    useClass: UserService
-  }
-]
+    useClass: UserService,
+  },
+  AuthHelper,
+];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity, InfoUserEntity])],
+  imports: [TypeOrmModule.forFeature([AccountEntity, InfoUserEntity]), JwtModule.register({})],
   controllers: [AuthController],
   providers: [...providers],
 })

@@ -1,4 +1,4 @@
-export class BaseTokenPayload{
+export class BaseTokenClaimPayload {
   sub: string; // Subject
   jti: string; // JWT ID
   iat: number; // Issued At

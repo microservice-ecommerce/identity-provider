@@ -1,11 +1,11 @@
-import { H3Logger } from "@high3ar/common-api";
-import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import { ConvertUtil } from "@shared/utils/to-entity.util";
-import { UserPayload, UserRequest, UserResponse } from "@user/core/dtos";
+import { H3Logger } from '@high3ar/common-api';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { ConvertUtil } from '@shared/utils/to-entity.util';
+import { UserPayload, UserRequest, UserResponse } from '@user/core/dtos';
 import { IUserUseCase } from '../../core/interfaces';
-import { IAccountPort, IUserPort } from "../../core/ports";
-import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from "../../core/token";
-import { Transactional } from "typeorm-transactional";
+import { IAccountPort, IUserPort } from '../../core/ports';
+import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '../../core/token';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class UserService implements IUserUseCase {
@@ -13,17 +13,16 @@ export class UserService implements IUserUseCase {
     @Inject(USER_REPOSITORY)
     private readonly _userRepository: IUserPort,
     @Inject(ACCOUNT_REPOSITORY)
-    private readonly _accountRepository: IAccountPort
-  ) {
-  }
-  
+    private readonly _accountRepository: IAccountPort,
+  ) {}
+
   public getAll() {
-    return this._userRepository.getAll()
+    return this._userRepository.getAll();
   }
 
   @Transactional()
   public async save(request: UserRequest): Promise<UserPayload> {
-    const { infoUser, account } = request
+    const { infoUser, account } = request;
     const isEmailExist = await this._accountRepository.findByEmail(account.email);
     if (isEmailExist) {
       H3Logger.error('Email already exists');
@@ -42,6 +41,10 @@ export class UserService implements IUserUseCase {
   @Transactional()
   public async findOneByEmail(email: string): Promise<UserPayload> {
     const account = await this._accountRepository.findByEmail(email);
+    if (!account) {
+      H3Logger.error('Email not exist');
+      throw new BadRequestException('Email not exist');
+    }
     return new UserPayload(account.user, account);
   }
 }
