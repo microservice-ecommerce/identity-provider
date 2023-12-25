@@ -2,8 +2,8 @@ import { IAuthUseCase } from '@auth/core/interfaces';
 import { AUTH_SERVICE } from '@auth/core/token';
 import { AuthConfig } from '@auth/infrastructure';
 import { CoreApiResponse, H3Logger } from '@high3ar/common-api';
-import { Body, Controller, Inject, Post, Req } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Inject, Post, Req, Res } from '@nestjs/common';
+import { ApiBody, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UserRequest, UserResponse } from '../../../user/core/dtos';
 import { LoginRequest, TokenResponse } from '../../core/dtos';
@@ -36,9 +36,9 @@ export class AuthController {
   @ApiBody({ type: UserRequest, required: true })
   @ApiOkResponse({ description: AuthConfig.register.description, type: UserResponse })
   public async register(@Body() request: UserRequest): Promise<CoreApiResponse<UserResponse>> {
-    H3Logger.info('req :: GET ::  regiser user');
+    H3Logger.info('req :: GET ::  register user');
     const user = await this._authService.register(request);
-    H3Logger.info('req :: GET ::  regiser user');
+    H3Logger.info('req :: GET ::  register user');
     return CoreApiResponse.success(user);
   }
 
@@ -52,5 +52,17 @@ export class AuthController {
     const response = await this._authService.refreshToken(req);
     H3Logger.info('req :: POST ::  refresh token');
     return CoreApiResponse.success(response);
+  }
+
+  @Delete(AuthConfig.logout.url)
+  @ApiOperation({
+    summary: AuthConfig.logout.summary,
+  })
+  @ApiOkResponse({ description: AuthConfig.logout.description })
+  public async logout(@Req() req): Promise<CoreApiResponse<void>> {
+    H3Logger.info('req :: POST ::  logout');
+    const response = await this._authService.logout(req);
+    H3Logger.info('req :: POST ::  logout');
+    return CoreApiResponse.success(null, 'Logout successful');
   }
 }

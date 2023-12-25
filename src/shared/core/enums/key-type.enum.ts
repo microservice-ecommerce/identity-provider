@@ -1,4 +1,4 @@
 export enum KeyType {
-  REFRESH_TOKEN = 'REFRESH_TOKEN',
-  ACCESS_TOKEN = 'ACCESS_TOKEN',
+  REFRESH_TOKEN = 'refresh-token',
+  ACCESS_TOKEN = 'access-token',
 }

@@ -9,6 +9,7 @@ import { Request } from 'express';
 import { LoginRequest, TokenResponse } from '../../core/dtos';
 import { IAuthUseCase } from '../../core/interfaces';
 import { AuthHelper } from '../helpers/auth.helper';
+import { KeyType } from '@shared/core/enums';
 @Injectable()
 export class AuthService implements IAuthUseCase {
   constructor(
@@ -44,12 +45,33 @@ export class AuthService implements IAuthUseCase {
       throw new UnauthorizedException('Refresh token not found');
     }
 
-    const tokenPayload = this._authHelper.verifyRefreshToken(refreshToken);
+    const tokenPayload = await this._authHelper.verifyRefreshToken(refreshToken);
+
     const user = await this._userService.findOneByEmail(tokenPayload.sub);
     const token = await this._authHelper.createToken(user, tokenPayload.exp);
     this._authHelper.setCookies(req, token);
 
+    this._authHelper.revokeToken(tokenPayload.jti, KeyType.REFRESH_TOKEN);
+
     return new TokenResponse(token.accessToken, token.refreshToken, token.expiresInAccessToken);
+  }
+
+  public async logout(@Req() req: Request): Promise<void> {
+    const accessToken = req.cookies[IdentityProviderConstant.NAME_ACCESS_TOKEN];
+    const refreshToken = req.cookies[IdentityProviderConstant.NAME_REFRESH_TOKEN];
+
+    if (!accessToken || !refreshToken) {
+      H3Logger.error('Token not found');
+      throw new UnauthorizedException('Token not found');
+    }
+
+    const decodeRefreshToken = await this._authHelper.verifyRefreshToken(refreshToken);
+    const decodeAccessToken = await this._authHelper.verifyAccessToken(accessToken);
+
+    this._authHelper.clearCookies(req);
+
+    this._authHelper.revokeToken(decodeRefreshToken.jti, KeyType.REFRESH_TOKEN);
+    this._authHelper.revokeToken(decodeAccessToken.jti, KeyType.ACCESS_TOKEN);
   }
 
   private async _comparedPassword(password: string, user: UserPayload): Promise<boolean> {
