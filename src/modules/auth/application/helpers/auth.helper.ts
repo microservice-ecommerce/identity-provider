@@ -65,56 +65,69 @@ export class AuthHelper {
   public setCookies(req: Request, token: TokenPayload): void {
     req.res.cookie(IdentityProviderConstant.NAME_ACCESS_TOKEN, token.accessToken, {
       httpOnly: true,
-      sameSite: 'none',
+      // sameSite: 'none',
       maxAge: token.expiresInAccessToken,
     });
     req.res.cookie(IdentityProviderConstant.NAME_REFRESH_TOKEN, token.refreshToken, {
       httpOnly: true,
-      sameSite: 'none',
+      // sameSite: 'none',
       maxAge: token.expiresInRefreshToken,
-      path: AuthConstant.endpointRefreshToken,
+      path: AuthConstant.endpointAuth,
     });
   }
 
-  public verifyRefreshToken(token: string): DecodeTokenPayload {
-    const tokenPayload: BaseTokenClaimPayload = this._jwtService.verify(token, {
+  public clearCookies(req: Request): void {
+    req.res.clearCookie(IdentityProviderConstant.NAME_ACCESS_TOKEN);
+    req.res.clearCookie(IdentityProviderConstant.NAME_REFRESH_TOKEN, {
+      path: AuthConstant.endpointAuth,
+    });
+  }
+
+  public async verifyRefreshToken(token: string): Promise<DecodeTokenPayload> {
+    const tokenPayload: BaseTokenClaimPayload = await this._jwtService.verifyAsync(token, {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
     });
     const decodeTokenPayload: DecodeTokenPayload = new DecodeTokenPayload(tokenPayload);
     this._validateClaim(decodeTokenPayload);
-    this._validateRevokeToken(token, KeyType.REFRESH_TOKEN);
+    await this._validateRevokeToken(decodeTokenPayload.jti, KeyType.REFRESH_TOKEN);
 
     return decodeTokenPayload;
   }
 
-  public getRefreshTokenInBlackList(token: string) {
-    const keyString = this._cacheService.getKey(KeyType.REFRESH_TOKEN, token);
-    const refreshToken = this._cacheService.get(keyString);
-    return refreshToken;
+  public async verifyAccessToken(token: string): Promise<DecodeTokenPayload> {
+    const tokenPayload: BaseTokenClaimPayload = await this._jwtService.verifyAsync(token, {
+      secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
+    });
+    const decodeTokenPayload: DecodeTokenPayload = new DecodeTokenPayload(tokenPayload);
+    this._validateClaim(decodeTokenPayload);
+    await this._validateRevokeToken(decodeTokenPayload.jti, KeyType.ACCESS_TOKEN);
+    return decodeTokenPayload;
   }
 
-  public getAccessTokenInBlackList(token: string) {
-    const keyString = this._cacheService.getKey(KeyType.ACCESS_TOKEN, token);
-    const accessToken = this._cacheService.get(keyString);
-    return accessToken;
+  public isExistTokenInBlackList(jti: string, keyType: KeyType): Promise<number> {
+    const keyString = this._cacheService.getKey(keyType, jti);
+    return this._cacheService.existsBL(keyString, jti);
+  }
+
+  public async revokeToken(jti: string, keyType: KeyType): Promise<void> {
+    let keyString = await this._cacheService.getKey(keyType, jti);
+    this._cacheService.addBL(keyString, jti);
   }
 
   private _validateClaim(token: BaseTokenClaimPayload) {
     const isValidClaims =
-      token.aud === IdentityProviderConfig.TOKEN_CLAIM_AUD ||
-      token.iss === IdentityProviderConfig.TOKEN_CLAIM_ISS ||
+      token.aud === IdentityProviderConfig.TOKEN_CLAIM_AUD &&
+      token.iss === IdentityProviderConfig.TOKEN_CLAIM_ISS &&
       token.nbf < nowTimeNumber();
+
     if (!isValidClaims) {
       H3Logger.error('Invalid token claim');
       throw new UnauthorizedException('Invalid token');
     }
   }
 
-  private async _validateRevokeToken(token: string, keyType: KeyType): Promise<void> {
-    let isTokenBlackList = await this.getAccessTokenInBlackList(token);
-    if (keyType === KeyType.REFRESH_TOKEN) {
-      isTokenBlackList = await this.getRefreshTokenInBlackList(token);
-    }
+  private async _validateRevokeToken(jti: string, keyType: KeyType): Promise<void> {
+    const isTokenBlackList = await this.isExistTokenInBlackList(jti, keyType);
     if (isTokenBlackList) {
       H3Logger.error('Token has been revoked');
       throw new UnauthorizedException('Token has been revoked');

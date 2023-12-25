@@ -15,4 +15,9 @@ export const AuthConfig = {
     summary: 'Refresh token',
     description: 'Refresh token Successful.',
   },
+  logout: {
+    url: 'logout',
+    summary: 'Logout',
+    description: 'Logout Successful.',
+  }
 };

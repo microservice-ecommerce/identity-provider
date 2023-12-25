@@ -1,11 +1,11 @@
-import { H3Logger } from "@high3ar/common-api";
+import { H3Logger } from '@high3ar/common-api';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { initializeTransactionalContext } from 'typeorm-transactional';
 import * as process from 'node:process';
 
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { IdentityProviderConfig } from '../infrastructure/configuration/identity-provider.config';
 import { RootModule } from './module-load/root.module';
 import * as cookieParser from 'cookie-parser';
@@ -26,7 +26,7 @@ export class ServerApplication {
     this.registerSwagger(app);
 
     H3Logger.initialize();
-    await app.listen(PORT).catch(error => {
+    await app.listen(PORT).catch((error) => {
       H3Logger.error(`🔥 Failed to start server, ${error.message}`);
       process.exit(1);
     });
@@ -37,20 +37,19 @@ export class ServerApplication {
   }
 
   public static new(): ServerApplication {
-    return new ServerApplication()
+    return new ServerApplication();
   }
 
   private registerSwagger(app: NestExpressApplication): void {
     const options = new DocumentBuilder()
-      .setTitle("Identity API")
-      .setDescription("This is the Identity API documentation")
-      .setVersion("1.0")
-      .setBasePath("api")
+      .setTitle('Identity API')
+      .setDescription('This is the Identity API documentation')
+      .setVersion('1.0')
+      .setBasePath('api')
       .addBearerAuth()
+      .addCookieAuth()
       .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup("/docs", app, document);
+    SwaggerModule.setup('/docs', app, document);
   }
 }
-
-
