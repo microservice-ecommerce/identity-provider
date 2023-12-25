@@ -11,7 +11,7 @@ export const AuthConfig = {
     description: 'Register Successful.',
   },
   refreshToken: {
-    url: 'refreshToken',
+    url: 'refresh-token',
     summary: 'Refresh token',
     description: 'Refresh token Successful.',
   },

@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 
 export class TokenPayload {
   accessToken: string;

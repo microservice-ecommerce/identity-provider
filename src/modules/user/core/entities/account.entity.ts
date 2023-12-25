@@ -16,7 +16,7 @@ export class AccountEntity extends ModelBaseEntity {
   id: number;
 
   @OneToOne(() => InfoUserEntity, (user) => user.account, { eager: true })
-  user?: InfoUserEntity;
+  user: InfoUserEntity;
 
   @Unique(['email'])
   @Column({ name: DatabaseColumn.EMAIL })

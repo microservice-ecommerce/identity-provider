@@ -8,6 +8,8 @@ import * as process from 'node:process';
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { IdentityProviderConfig } from '../infrastructure/configuration/identity-provider.config';
 import { RootModule } from './module-load/root.module';
+import * as cookieParser from 'cookie-parser';
+
 export class ServerApplication {
   public async run(): Promise<void> {
     initializeTransactionalContext();
@@ -19,6 +21,7 @@ export class ServerApplication {
     app.enableCors({ origin: '*' });
 
     app.setGlobalPrefix(GLOBAL_PREFIX_API);
+    app.use(cookieParser());
 
     this.registerSwagger(app);
 

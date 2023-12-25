@@ -8,24 +8,6 @@ export class BaseTokenClaimPayload {
   iss: string; // Issuer
   email: string;
   name: string;
-  phoneNumber: string;
   gender: string;
   address: string;
-  // constructor(
-  //   sub: string,
-  //   jti: string,
-  //   iat: number,
-  //   aud: string,
-  //   exp: number,
-  //   nbf: number,
-  //   iss: string,
-  // ){
-  //   this.sub = sub;
-  //   this.jti = jti;
-  //   this.iat = iat;
-  //   this.aud = aud;
-  //   this.exp = exp;
-  //   this.nbf = nbf;
-  //   this.iss = iss;
-  // }
 }

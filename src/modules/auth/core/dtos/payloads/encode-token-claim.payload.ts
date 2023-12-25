@@ -8,7 +8,9 @@ export class EncodeTokenPayload extends BaseTokenClaimPayload {
     sub: string,
     aud: string,
     iss: string,
+    nbf: number,
     now: number,
+    expired: number,
     email: string,
     name: string,
     address: string,
@@ -19,7 +21,8 @@ export class EncodeTokenPayload extends BaseTokenClaimPayload {
     this.jti = uuid();
     this.iat = now;
     this.aud = AES256Helper.encodeAES256(aud);
-    this.nbf = now;
+    this.nbf = nbf;
+    this.exp = expired;
     this.iss = AES256Helper.encodeAES256(iss);
     this.name = AES256Helper.encodeAES256(name);
     this.email = AES256Helper.encodeAES256(email);

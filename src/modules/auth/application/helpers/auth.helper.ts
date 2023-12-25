@@ -20,11 +20,14 @@ export class AuthHelper {
     private readonly _cacheService: CacheService,
   ) {}
   public async createToken(user: UserPayload, expiresInRefreshToken?: number): Promise<TokenPayload> {
+    const now = nowTimeNumber();
     const accessTokenPayload: EncodeTokenPayload = new EncodeTokenPayload(
       user.account.email,
       IdentityProviderConfig.TOKEN_CLAIM_AUD,
       IdentityProviderConfig.TOKEN_CLAIM_ISS,
-      nowTimeNumber(),
+      now,
+      now,
+      now + IdentityProviderConstant.ACCESS_TOKEN_EXPIRED,
       user.account.email,
       user.infoUser.name,
       user.infoUser.address,
@@ -35,7 +38,9 @@ export class AuthHelper {
       user.account.email,
       IdentityProviderConfig.TOKEN_CLAIM_AUD,
       IdentityProviderConfig.TOKEN_CLAIM_ISS,
-      expiresInRefreshToken || nowTimeNumber(),
+      now,
+      expiresInRefreshToken || now,
+      expiresInRefreshToken || now + IdentityProviderConstant.REFRESH_TOKEN_EXPIRED,
       user.account.email,
       user.infoUser.name,
       user.infoUser.address,
@@ -44,11 +49,9 @@ export class AuthHelper {
 
     const createAccessToken = this._jwtService.signAsync(this._toObject(accessTokenPayload), {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
-      expiresIn: IdentityProviderConstant.ACCESS_TOKEN_EXPIRED,
     });
     const createRefreshToken = this._jwtService.signAsync(this._toObject(refreshTokenPayload), {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
-      expiresIn: expiresInRefreshToken || IdentityProviderConstant.REFRESH_TOKEN_EXPIRED,
     });
 
     const expiresInAT = nowTimeNumber() + IdentityProviderConstant.ACCESS_TOKEN_EXPIRED;
@@ -78,7 +81,6 @@ export class AuthHelper {
       secret: IdentityProviderConfig.TOKEN_SECRET_KEY,
     });
     const decodeTokenPayload: DecodeTokenPayload = new DecodeTokenPayload(tokenPayload);
-
     this._validateClaim(decodeTokenPayload);
     this._validateRevokeToken(token, KeyType.REFRESH_TOKEN);
 
@@ -99,10 +101,11 @@ export class AuthHelper {
 
   private _validateClaim(token: BaseTokenClaimPayload) {
     const isValidClaims =
-      token.aud !== IdentityProviderConfig.TOKEN_CLAIM_AUD ||
-      token.iss !== IdentityProviderConfig.TOKEN_CLAIM_ISS ||
-      token.nbf > nowTimeNumber();
+      token.aud === IdentityProviderConfig.TOKEN_CLAIM_AUD ||
+      token.iss === IdentityProviderConfig.TOKEN_CLAIM_ISS ||
+      token.nbf < nowTimeNumber();
     if (!isValidClaims) {
+      H3Logger.error('Invalid token claim');
       throw new UnauthorizedException('Invalid token');
     }
   }
