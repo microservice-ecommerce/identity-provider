@@ -41,7 +41,8 @@
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",
     "typeorm-transactional": "^0.5.0",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -54,7 +55,6 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "cookie-parser": "^1.4.6",
     "eslint": "~8.15.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "13.4.1",

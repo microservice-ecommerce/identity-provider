@@ -1,3 +1,7 @@
+DROP DATABASE H3IdentityProviderDB;
+CREATE DATABASE H3IdentityProviderDB;
+
+USE H3IdentityProviderDB;
 
 CREATE TABLE id_account (
     int_account_id BIGINT NOT NULL AUTO_INCREMENT,
