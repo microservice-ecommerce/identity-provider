@@ -12,4 +12,6 @@ export interface BaseInterfaceRepository<T> {
   remove(id: string): Promise<DeleteResult>;
 
   findWithRelations(relations: any): Promise<T[]>;
+
+  getTest(): Promise<string>;
 }
