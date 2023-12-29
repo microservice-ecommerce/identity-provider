@@ -1,4 +1,5 @@
 export const AuthConfig = {
+  tag: 'Authentication',
   prefix: 'v1/auth',
   login: {
     url: 'login',
@@ -19,5 +20,5 @@ export const AuthConfig = {
     url: 'logout',
     summary: 'Logout',
     description: 'Logout Successful.',
-  }
+  },
 };

@@ -2,7 +2,6 @@ import { BaseInterfaceRepository } from './base.interface';
 import { DeleteResult, Repository } from 'typeorm';
 
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
-
   private entity: Repository<T>;
 
   protected constructor(entity: Repository<T>) {
@@ -14,15 +13,16 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
   }
 
   public async findOneById(id: any): Promise<T> {
+    console.log('asdaosdoasd');
     return await this.entity.findOne(id);
   }
 
   public async findByCondition(filterCondition: any): Promise<T> {
-    return await this.entity.findOne({where: filterCondition});
+    return await this.entity.findOne({ where: filterCondition });
   }
 
-  public async  findWithRelations(relations: any): Promise<T[]> {
-    return await this.entity.find(relations)
+  public async findWithRelations(relations: any): Promise<T[]> {
+    return await this.entity.find(relations);
   }
 
   public async findAll(): Promise<T[]> {
@@ -33,4 +33,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     return await this.entity.delete(id);
   }
 
+  public async getTest(): Promise<string> {
+    return 'asdasdas';
+  }
 }
