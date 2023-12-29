@@ -1,0 +1,45 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    env_file: .env.production
+    ports:
+      - '3001:3002'
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    restart: always
+    networks:
+      - highbar-network
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'H3IdentityProviderDB'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '123@'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - $HOME/database:/var/lib/mysql
+      - ../etc/01.sql:/docker-entrypoint-initdb.d/01.sql
+    networks:
+      - highbar-network
+  cache:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    networks:
+      - highbar-network
+networks:
+  highbar-network:
+    driver: bridge
