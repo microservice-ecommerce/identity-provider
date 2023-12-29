@@ -47,4 +47,16 @@ export class UserService implements IUserUseCase {
     }
     return new UserPayload(account.user, account);
   }
+
+  @Transactional()
+  public async getOne(userId: number): Promise<UserResponse> {
+    const listUser = await this._userRepository.getTest();
+    console.log(listUser);
+    const user = await this._userRepository.findOneById(userId);
+    if (!user) {
+      H3Logger.error('User not exist');
+      throw new BadRequestException('User not exist');
+    }
+    return new UserResponse(user, user.account);
+  }
 }

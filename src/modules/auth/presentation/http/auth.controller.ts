@@ -9,7 +9,7 @@ import { UserRequest, UserResponse } from '../../../user/core/dtos';
 import { LoginRequest, TokenResponse } from '../../core/dtos';
 
 @Controller(AuthConfig.prefix)
-@ApiTags('Authentication')
+@ApiTags(AuthConfig.tag)
 export class AuthController {
   constructor(
     @Inject(AUTH_SERVICE)
