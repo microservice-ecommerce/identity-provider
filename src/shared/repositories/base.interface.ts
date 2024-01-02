@@ -1,4 +1,4 @@
-import { DeleteResult } from 'typeorm';
+import { DeleteResult, FindOneOptions } from 'typeorm';
 
 export interface BaseInterfaceRepository<T> {
   create(data: T | any): Promise<T>;
