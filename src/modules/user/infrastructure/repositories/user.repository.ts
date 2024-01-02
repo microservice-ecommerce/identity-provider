@@ -14,7 +14,13 @@ export class UserRepository extends BaseAbstractRepository<InfoUserEntity> imple
   ) {
     super(_userRepository);
   }
-  getAll(): string {
-    return 'GET ALL USERS';
+
+  public findOneById(id: number): Promise<InfoUserEntity> {
+    return this._userRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['account'],
+    });
   }
 }

@@ -11,7 +11,7 @@ export class InfoUserEntity extends ModelBaseEntity {
     Object.assign(this, props);
   }
 
-  @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
+  @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_USER })
   id: number;
 
   @OneToOne(() => AccountEntity, (account) => account.user)
