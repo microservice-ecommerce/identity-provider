@@ -11,11 +11,17 @@ node {
      }
    }
   stage('deploy'){
-    docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
-      def app = docker.image("ngocphupham/identity-provider:${commit_id}").push()
-      sh "docker pull ngocphupham/identity-provider:${commit_id}"
-      sh 'docker ps -a | grep high3ar-identity-provider && docker stop high3ar-identity-provider && docker rm high3ar-identity-provider || echo "No container found to stop"'
-      sh "docker run -d --name high3ar-identity-provider --env-file .env.production.highbar -p 3002:3002 ngocphupham/identity-provider:${commit_id}"
+
+    sshagent(['vinhphan-root-keys']) {
+      docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
+        def app = docker.image("ngocphupham/identity-provider:${commit_id}").push()
+        sh "docker pull ngocphupham/identity-provider:${commit_id}"
+        sh 'docker ps -a | grep high3ar-identity-provider && docker stop high3ar-identity-provider && docker rm high3ar-identity-provider || echo "No container found to stop"'
+        sh "docker run -d --name high3ar-identity-provider --env-file .env.production.highbar -p 3002:3002 ngocphupham/identity-provider:${commit_id}"
+      }
     }
+
   }
 }
+
+docker run --name remote-host remote-host
