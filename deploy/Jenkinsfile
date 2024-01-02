@@ -6,14 +6,14 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('docker build/push') {
-     docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
+     docker.withRegistry('https://index.docker.io/v2/', 'ngocphupham/ identity-provider') {
        def app = docker.build("ngocphupham/identity-provider:${commit_id}", '.').push()
      }
    }
   stage('deploy'){
 
     sshagent(['vinhphan-root-keys']) {
-      docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
+      docker.withRegistry('https://index.docker.io/v2/', 'ngocphupham/ identity-provider') {
         def app = docker.image("ngocphupham/identity-provider:${commit_id}").push()
         sh "docker pull ngocphupham/identity-provider:${commit_id}"
         sh 'docker ps -a | grep high3ar-identity-provider && docker stop high3ar-identity-provider && docker rm high3ar-identity-provider || echo "No container found to stop"'
