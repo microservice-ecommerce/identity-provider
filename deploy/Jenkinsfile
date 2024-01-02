@@ -7,6 +7,7 @@ node {
    }
    stage('docker build/push') {
      docker.withRegistry('https://index.docker.io/v2/', 'ngocphupham/ identity-provider') {
+       sh "ls"
        sh "cd deploy"
        def app = docker.build("ngocphupham/identity-provider:${commit_id}", '.').push()
      }
