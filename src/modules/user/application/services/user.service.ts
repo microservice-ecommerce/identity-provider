@@ -1,5 +1,5 @@
 import { H3Logger } from '@high3ar/common-api';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConvertUtil } from '@shared/utils/to-entity.util';
 import { UserPayload, UserRequest, UserResponse } from '@user/core/dtos';
 import { IUserUseCase } from '../../core/interfaces';
@@ -15,10 +15,6 @@ export class UserService implements IUserUseCase {
     @Inject(ACCOUNT_REPOSITORY)
     private readonly _accountRepository: IAccountPort,
   ) {}
-
-  public getAll() {
-    return this._userRepository.getAll();
-  }
 
   @Transactional()
   public async save(request: UserRequest): Promise<UserPayload> {
@@ -50,12 +46,10 @@ export class UserService implements IUserUseCase {
 
   @Transactional()
   public async getOne(userId: number): Promise<UserResponse> {
-    const listUser = await this._userRepository.getTest();
-    console.log(listUser);
     const user = await this._userRepository.findOneById(userId);
     if (!user) {
       H3Logger.error('User not exist');
-      throw new BadRequestException('User not exist');
+      throw new NotFoundException('User not exist');
     }
     return new UserResponse(user, user.account);
   }

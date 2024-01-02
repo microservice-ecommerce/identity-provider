@@ -6,6 +6,8 @@ import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthConfig } from '@auth/infrastructure';
 import { UserConfig } from '@user/infrastructure/configuration';
 import { Headers } from '@nestjs/common';
+import { CoreApiResponse, H3Logger } from '@high3ar/common-api';
+import { UserResponse } from '@user/core/dtos';
 
 @ApiTags(UserConfig.tag)
 @Controller(UserConfig.prefix)
@@ -20,7 +22,10 @@ export class UserController {
     summary: UserConfig.profile.summary,
   })
   @ApiBody({ type: UserConfig.profile.description, required: true })
-  public getProfile(@Headers('x-userid') userId: number) {
-    return this._userService.getOne(userId);
+  public async getProfile(@Headers('x-userid') userId: number): Promise<CoreApiResponse<UserResponse>> {
+    H3Logger.info('req :: GET ::  get profile');
+    const response = await this._userService.getOne(userId);
+    H3Logger.info('req :: GET ::  get profile');
+    return CoreApiResponse.success(response);
   }
 }
