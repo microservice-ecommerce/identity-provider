@@ -24,7 +24,6 @@ export abstract class ModelBaseEntity extends BaseEntity {
 
   @BeforeUpdate()
   insertUpdated() {
-    this.createdDate = new Date();
     this.modifiedDate = new Date();
   }
 

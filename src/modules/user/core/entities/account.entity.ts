@@ -42,4 +42,9 @@ export class AccountEntity extends ModelBaseEntity {
     this.salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, this.salt);
   }
+
+  update(lastLoginIp: string) {
+    this.lastLoginIp = lastLoginIp;
+    this.lastLogin = new Date();
+  }
 }

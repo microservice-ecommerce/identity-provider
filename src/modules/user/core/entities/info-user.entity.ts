@@ -4,6 +4,7 @@ import { TableName } from '../../../../shared/core/constants/table-name.constant
 import { IUser } from '../interfaces';
 import { AccountEntity } from './account.entity';
 import { ModelBaseEntity } from '@shared/core/entities';
+import { InfoUserRequest, UserRequest } from '../dtos';
 @Entity(TableName.INFO_USER)
 export class InfoUserEntity extends ModelBaseEntity {
   constructor(props: IUser) {
@@ -32,4 +33,12 @@ export class InfoUserEntity extends ModelBaseEntity {
 
   @Column({ name: DatabaseColumn.ADDRESS })
   address: string;
+
+  update(request: InfoUserRequest) {
+    this.name = request.name;
+    this.phoneNumber = request.phoneNumber;
+    this.address = request.address;
+    this.dateOfBirth = request.dateOfBirth;
+    this.gender = request.gender;
+  }
 }

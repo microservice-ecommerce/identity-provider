@@ -1,7 +1,8 @@
-import { DeleteResult, FindOneOptions } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export interface BaseInterfaceRepository<T> {
-  create(data: T | any): Promise<T>;
+  save(data: T | any): Promise<T>;
 
   findOneById(id: number): Promise<T>;
 
@@ -13,5 +14,5 @@ export interface BaseInterfaceRepository<T> {
 
   findWithRelations(relations: any): Promise<T[]>;
 
-  getTest(): Promise<string>;
+  update(id: number, data: QueryDeepPartialEntity<T>): Promise<T>;
 }

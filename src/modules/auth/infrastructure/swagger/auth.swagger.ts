@@ -1,6 +1,6 @@
-export const AuthConfig = {
-  tag: 'Authentication',
+export const AuthSwagger = {
   prefix: 'v1/auth',
+  tags: 'Auth',
   login: {
     url: 'login',
     summary: 'Login username and password',
