@@ -1,5 +1,6 @@
-import { BaseInterfaceRepository } from './base.interface';
 import { DeleteResult, FindOneOptions, Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { BaseInterfaceRepository } from './base.interface';
 
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
   private entity: Repository<T>;
@@ -8,11 +9,21 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     this.entity = entity;
   }
 
-  public async create(data: T | any): Promise<T> {
+  public async save(data: T | any): Promise<T> {
     return await this.entity.save(data);
   }
 
   public async findOneById(id: number): Promise<T> {
+    const options: FindOneOptions = {
+      where: {
+        id,
+      },
+    };
+    return await this.entity.findOne(options);
+  }
+
+  public async update(id: number, data: QueryDeepPartialEntity<T>): Promise<T> {
+    await this.entity.update(id, data);
     const options: FindOneOptions = {
       where: {
         id,

@@ -1,9 +1,8 @@
-import { AccountEntity } from "../entities";
-import { BaseInterfaceRepository } from "src/shared/repositories/base.interface";
+import { AccountEntity } from '../entities';
+import { BaseInterfaceRepository } from 'src/shared/repositories/base.interface';
 
-export interface IAccountPort extends BaseInterfaceRepository<AccountEntity>{
-  getAll(): string
+export interface IAccountPort extends BaseInterfaceRepository<AccountEntity> {
+  getAll(): string;
 
-  findByEmail(email: string): Promise<AccountEntity| null>
-
+  findByEmail(email: string): Promise<AccountEntity | null>;
 }

@@ -14,6 +14,7 @@ export class TokenResponse {
   refreshToken: string;
 
   @ApiProperty({
+    name: 'expires_in',
     description: 'expired access_token',
   })
   expiresIn: number;
