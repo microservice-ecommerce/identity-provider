@@ -48,19 +48,39 @@ export class CacheService {
     return this._redisManager.get(key);
   }
 
-  public addBL(key: string, value: string): Promise<number> {
+  public async addBL(key: string, value: string): Promise<number> {
     const cmd = this.cmds['BF.ADD'];
-    return cmd.call(this._redisManager, key, value);
+  
+    console.log(`Adding key ${key} to bloom filter...`);
+  
+    const result = await cmd.call(this._redisManager, key, value);
+  
+    console.log(`Key ${key} added to bloom filter with result: ${result}`);
+  
+    return result;
   }
 
-  public existsBL(key: string, value: string): Promise<number> {
+  public async existsBL(key: string, value: string): Promise<number> {
     const cmd = this.cmds['BF.EXISTS'];
-    return cmd.call(this._redisManager, key, value);
+  
+    console.log(`Checking if key ${key} exists in bloom filter...`);
+  
+    const result = await cmd.call(this._redisManager, key, value);
+  
+    console.log(`Key ${key} exists in bloom filter: ${result}`);
+  
+    return result;
   }
 
-  public reserve(key: string, errRate: number, capacity: number): Promise<number> {
-    // errRate is false positive, it means the key doesn't actually exists, but the result shows it exists
+  public async reserve(key: string, errRate: number, capacity: number): Promise<number> {
     const cmd = this.cmds['BF.RESERVE'];
-    return cmd.call(this._redisManager, key, errRate, capacity);
+  
+    console.log(`Reserving key ${key} in bloom filter with error rate ${errRate} and capacity ${capacity}...`);
+  
+    const result = await cmd.call(this._redisManager, key, errRate, capacity);
+  
+    console.log(`Key ${key} reserved in bloom filter with result: ${result}`);
+  
+    return result;
   }
 }

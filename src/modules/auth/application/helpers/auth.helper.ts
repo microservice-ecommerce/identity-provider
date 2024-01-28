@@ -1,16 +1,16 @@
-import { AuthConstant } from '@auth/core/constants';
-import { BaseTokenClaimPayload } from '@auth/core/dtos/payloads/token-claim.payload';
+import { AuthConstant } from '@auth/domain/constants';
+import { BaseTokenClaimPayload } from '@auth/domain/dtos/payloads/token-claim.payload';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { IdentityProviderConstant } from '@shared/core/constants';
 import { KeyType } from '@shared/core/enums';
 import { CacheService } from '@shared/services';
-import { UserPayload } from '@user/core/dtos';
+import { UserPayload } from '@user/domain/dtos';
 import { Request } from 'express';
 import { IdentityProviderConfig } from 'src/infrastructure/configuration/identity-provider.config';
 import { nowTimeNumber } from '../../../../shared/utils/now-time-number';
-import { EncodeTokenPayload, TokenPayload } from '../../core/dtos';
-import { DecodeTokenPayload } from '../../core/dtos/payloads/decode-token-claim.payload';
+import { EncodeTokenPayload, TokenPayload } from '../../domain/dtos';
+import { DecodeTokenPayload } from '../../domain/dtos/payloads/decode-token-claim.payload';
 import { H3Logger } from '@high3ar/common-api';
 
 @Injectable()

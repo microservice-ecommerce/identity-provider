@@ -1,29 +1,19 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './presentation';
 import { UserService } from './application/services/user.service';
-import { ACCOUNT_REPOSITORY, USER_REPOSITORY, USER_SERVICE } from './core/token';
-import { UserRepository, AccountRepository } from './infrastructure';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountEntity, InfoUserEntity } from './core/entities';
+import { USER_SERVICE } from './domain/token';
+import { UserController } from './presentation';
 
 const providers = [
   {
     provide: USER_SERVICE,
     useClass: UserService,
   },
-  {
-    provide: ACCOUNT_REPOSITORY,
-    useClass: AccountRepository,
-  },
-  {
-    provide: USER_REPOSITORY,
-    useClass: UserRepository,
-  },
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([InfoUserEntity, AccountEntity])],
+  imports: [],
   controllers: [UserController],
   providers: [...providers],
+  exports: [USER_SERVICE],
 })
 export class UserModule {}

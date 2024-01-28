@@ -1,18 +1,18 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-export interface BaseInterfaceRepository<T> {
-  save(data: T | any): Promise<T>;
+export interface BaseInterfaceRepository<T,M> {
+  save(data: T | any): Promise<M>;
 
-  findOneById(id: number): Promise<T>;
+  findOneById(id: number): Promise<M | null>;
 
-  findByCondition(filterCondition: any): Promise<T>;
+  findByCondition(filterCondition: any): Promise<M | null>;
 
-  findAll(): Promise<T[]>;
+  findAll(): Promise<M[]>;
 
   remove(id: string): Promise<DeleteResult>;
 
-  findWithRelations(relations: any): Promise<T[]>;
+  findWithRelations(relations: any): Promise<M[]>;
 
-  update(id: number, data: QueryDeepPartialEntity<T>): Promise<T>;
+  update(id: number, data: QueryDeepPartialEntity<T>): Promise<UpdateResult>;
 }
