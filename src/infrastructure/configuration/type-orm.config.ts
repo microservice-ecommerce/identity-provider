@@ -9,7 +9,7 @@ const TypeOrmConfig: TypeOrmModuleOptions = {
   username: IdentityProviderConfig.DB_USERNAME,
   password: IdentityProviderConfig.DB_PASSWORD,
   database: IdentityProviderConfig.DB_NAME,
-  entities: [join(__dirname, '../../**/core/entities/**.entity.js')],
+  entities: [join(__dirname, '../**/mappers/**.entity.js')],
   synchronize: false,
 };
 export default TypeOrmConfig;

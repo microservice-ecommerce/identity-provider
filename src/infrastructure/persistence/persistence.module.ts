@@ -3,6 +3,7 @@ import TypeOrmConfig from "../configuration/type-orm.config";
 import { Module } from "@nestjs/common";
 import { DataSource } from 'typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
+import { RepositoryModule } from './repositories/repository.module';
 
 
 @Module({
@@ -18,7 +19,9 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
 
         return addTransactionalDataSource(new DataSource(options));
       },
-    })
+    }),
+    RepositoryModule
   ],
+
 })
 export class PersistenceModule {}

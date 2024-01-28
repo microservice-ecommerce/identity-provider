@@ -1,12 +1,12 @@
-import { IAuthUseCase } from '@auth/core/interfaces';
-import { AUTH_SERVICE } from '@auth/core/token';
-import { AuthSwagger } from '@auth/infrastructure';
+import { IAuthUseCase } from '@auth/domain/interfaces';
+import { AUTH_SERVICE } from '@auth/domain/token';
 import { CoreApiResponse, H3Logger } from '@high3ar/common-api';
 import { Body, Controller, Delete, Inject, Post, Req } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { UserRequest, UserResponse } from '../../../user/core/dtos';
-import { LoginRequest, TokenResponse } from '../../core/dtos';
+import { UserRequest, UserResponse } from '@user/domain/dtos';
+import { LoginRequest, TokenResponse } from '../../domain/dtos';
+import { AuthSwagger } from '../swagger';
 
 @Controller(AuthSwagger.prefix)
 @ApiTags(AuthSwagger.tags)

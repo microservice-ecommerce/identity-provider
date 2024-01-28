@@ -1,10 +1,10 @@
 import { CoreApiResponse, H3Logger } from '@high3ar/common-api';
 import { Body, Controller, Get, Headers, Inject, Param, Post, Put } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { InfoUserRequest, UserRequest, UserResponse } from '@user/core/dtos';
-import { UserSwagger } from '@user/infrastructure/swagger';
-import { IUserUseCase } from '../../core/interfaces';
-import { USER_SERVICE } from '../../core/token';
+import { InfoUserRequest, UserRequest, UserResponse } from '@user/domain/dtos';
+import { UserSwagger } from '@user/presentation/swagger';
+import { IUserUseCase } from '../../domain/interfaces';
+import { USER_SERVICE } from '../../domain/token';
 
 @ApiTags(UserSwagger.tags)
 @Controller(UserSwagger.prefix)
