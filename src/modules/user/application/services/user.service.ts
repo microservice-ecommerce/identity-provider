@@ -1,11 +1,10 @@
 import { H3Logger } from '@high3ar/common-api';
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ConvertUtil } from '@shared/utils/to-entity.util';
-import { InfoUserRequest, UserPayload, UserRequest, UserResponse } from '@user/core/dtos';
+import { IUserUseCase } from '@user/domain/interfaces';
+import { IAccountPort, IUserPort } from '@user/domain/ports';
+import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '@user/domain/token';
+import { AccountRequest, InfoUserRequest, UserPayload, UserRequest, UserResponse } from '@user/domain/dtos';
 import { Transactional } from 'typeorm-transactional';
-import { IUserUseCase } from '../../core/interfaces';
-import { IAccountPort, IUserPort } from '../../core/ports';
-import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '../../core/token';
 
 @Injectable()
 export class UserService implements IUserUseCase {
@@ -25,13 +24,14 @@ export class UserService implements IUserUseCase {
       throw new BadRequestException('Email already exists');
     }
 
-    let accountEntity = ConvertUtil.toAccountEntity(account);
-    accountEntity = await this._accountRepository.save(accountEntity);
+    let accountModel = AccountRequest.toModel(account);
+    console.log(accountModel)
+    accountModel = await this._accountRepository.save(accountModel);
 
-    let InfoUserEntity = ConvertUtil.toInfoUserEntity(infoUser, accountEntity);
-    InfoUserEntity = await this._userRepository.save(InfoUserEntity);
+    let infoUserModel = InfoUserRequest.toModel(infoUser, accountModel);
+    infoUserModel = await this._userRepository.save(infoUserModel);
 
-    return new UserPayload(InfoUserEntity, accountEntity);
+    return new UserPayload(infoUserModel, accountModel);
   }
 
   @Transactional()

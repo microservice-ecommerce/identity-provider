@@ -25,7 +25,9 @@ export class ServerApplication {
 
     this.registerSwagger(app);
 
+    this.printEnv();
     H3Logger.initialize();
+
     await app.listen(PORT).catch((error) => {
       H3Logger.error(`🔥 Failed to start server, ${error.message}`);
       process.exit(1);
@@ -40,6 +42,15 @@ export class ServerApplication {
     return new ServerApplication();
   }
 
+  private printEnv(): void {
+    console.log("===================== ENV ================");
+    for (const key in IdentityProviderConfig) {
+      if (IdentityProviderConfig.hasOwnProperty(key)) {
+        console.log(`${key}: ${IdentityProviderConfig[key]}`);
+      }
+    }
+    console.log("========================================");
+  }
   private registerSwagger(app: NestExpressApplication): void {
     const options = new DocumentBuilder()
       .setTitle('Identity API')

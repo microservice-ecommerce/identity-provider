@@ -1,8 +1,9 @@
 
-import { BaseEntity, BeforeInsert, BeforeUpdate, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { IModelBase } from "@high3ar/common-api";
+import { BeforeInsert, BeforeUpdate, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { DatabaseColumn } from "../constants/database.constant";
 
-export abstract class ModelBaseEntity extends BaseEntity {
+export abstract class ModelBaseEntity implements IModelBase {
   @CreateDateColumn({
     type: "timestamp",
     name: DatabaseColumn.CREATED_DATE,

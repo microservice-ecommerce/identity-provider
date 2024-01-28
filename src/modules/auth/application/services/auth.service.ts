@@ -1,13 +1,13 @@
 import { H3Logger } from '@high3ar/common-api';
 import { BadRequestException, Inject, Injectable, Req, UnauthorizedException } from '@nestjs/common';
 import { IdentityProviderConstant } from '@shared/core/constants';
-import { UserPayload, UserRequest, UserResponse } from '@user/core/dtos';
-import { IUserUseCase } from '@user/core/interfaces';
-import { USER_SERVICE } from '@user/core/token';
+import { UserPayload, UserRequest, UserResponse } from '@user/domain/dtos';
+import { IUserUseCase } from '@user/domain/interfaces';
+import { USER_SERVICE } from '@user/domain/token';
 import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
-import { LoginRequest, TokenResponse } from '../../core/dtos';
-import { IAuthUseCase } from '../../core/interfaces';
+import { LoginRequest, TokenResponse } from '../../domain/dtos';
+import { IAuthUseCase } from '../../domain/interfaces';
 import { AuthHelper } from '../helpers/auth.helper';
 import { KeyType } from '@shared/core/enums';
 @Injectable()
@@ -29,7 +29,7 @@ export class AuthService implements IAuthUseCase {
 
     const token = await this._authHelper.createToken(user);
     this._authHelper.setCookies(req, token);
-
+    
     return new TokenResponse(token.accessToken, token.refreshToken, token.expiresInAccessToken);
   }
 
