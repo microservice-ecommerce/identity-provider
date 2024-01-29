@@ -1,9 +1,9 @@
-import { ModelBaseEntity } from '@shared/core/entities';
+import { ModelBaseEntity } from '@shared/domain/entities';
 import { IInfoUser } from '@user/domain/interfaces';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { InfoUserRequest } from '../../../modules/user/domain/dtos';
-import { DatabaseColumn } from '../../../shared/core/constants/database.constant';
-import { TableName } from '../../../shared/core/constants/table-name.constant';
+import { DatabaseColumn } from '../../../shared/domain/constants/database.constant';
+import { TableName } from '../../../shared/domain/constants/table-name.constant';
 import { AccountEntity } from './account.entity';
 @Entity(TableName.INFO_USER)
 export class InfoUserEntity extends ModelBaseEntity implements IInfoUser {
@@ -33,4 +33,7 @@ export class InfoUserEntity extends ModelBaseEntity implements IInfoUser {
 
   @Column({ name: DatabaseColumn.ADDRESS })
   address: string;
+
+  @Column({ length: 100, nullable: true })
+  confirmationToken: string | null;
 }

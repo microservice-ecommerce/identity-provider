@@ -1,10 +1,10 @@
 import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { DatabaseColumn } from '../../../shared/core/constants/database.constant';
-import { TableName } from '../../../shared/core/constants/table-name.constant';
+import { DatabaseColumn } from '../../../shared/domain/constants/database.constant';
+import { TableName } from '../../../shared/domain/constants/table-name.constant';
 import { IAccount } from '../../../modules/user/domain/interfaces';
 import { InfoUserEntity } from './info-user.entity';
 import * as bcrypt from 'bcrypt';
-import { ModelBaseEntity } from '@shared/core/entities';
+import { ModelBaseEntity } from '@shared/domain/entities';
 @Entity(TableName.ACCOUNT)
 export class AccountEntity extends ModelBaseEntity implements IAccount {
   constructor(props: IAccount) {
@@ -36,6 +36,12 @@ export class AccountEntity extends ModelBaseEntity implements IAccount {
 
   @Column({ name: DatabaseColumn.LAST_LOGIN })
   lastLogin: Date;
+
+  @Column({ name: DatabaseColumn.CONFIRMATION_TOKEN, length: 100, nullable: true })
+  confirmationToken: string;
+
+  @Column({ name: DatabaseColumn.TOKEN_GENERATION_TIME, nullable: true })
+  tokenGenerationTime: Date;
 
   @BeforeInsert()
   public async hashPassword() {
