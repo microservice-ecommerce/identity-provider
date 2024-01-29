@@ -14,7 +14,7 @@ export class Configuration {
   readonly PORT = Number(3002);
 
   @IsInt()
-  readonly REDIS_PORT = parseInt(process.env['REDIS_PORT'] ?? '6378');
+  readonly REDIS_PORT = parseInt(process.env['REDIS_PORT'] ?? '6377');
 
   @IsString()
   readonly REDIS_HOST = process.env['REDIS_HOST'] ?? 'localhost';
@@ -35,7 +35,7 @@ export class Configuration {
   readonly DB_NAME = process.env['DB_NAME'] ?? 'H3IdentityProviderDB';
 
   @IsString()
-  readonly DB_PASSWORD = process.env['DB_PASSWORD'] ?? '123@';
+  readonly DB_PASSWORD = process.env['DB_PASSWORD'] ?? 'root';
 
   @IsString()
   readonly DB_USERNAME = process.env['DB_USERNAME'] ?? 'root';
