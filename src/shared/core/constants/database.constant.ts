@@ -4,7 +4,6 @@ export class DatabaseColumn{
 
   public static readonly MODIFIED_DATE : string = "dt_modified_date";
 
-  public static readonly ID_ACCOUNT = "int_account_id";
 
   public static readonly EMAIL = "str_email";
 

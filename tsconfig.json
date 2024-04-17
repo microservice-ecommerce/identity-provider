@@ -21,6 +21,7 @@
     "paths": {
       "@user/*": ["src/modules/user/*"],
       "@auth/*": ["src/modules/auth/*"],
+      "@authorization/*": ["src/modules/authorization/*"],
       "@shared/*": ["src/shared/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }

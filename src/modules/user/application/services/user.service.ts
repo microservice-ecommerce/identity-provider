@@ -25,7 +25,6 @@ export class UserService implements IUserUseCase {
     }
 
     let accountModel = AccountRequest.toModel(account);
-    console.log(accountModel)
     accountModel = await this._accountRepository.save(accountModel);
 
     let infoUserModel = InfoUserRequest.toModel(infoUser, accountModel);
