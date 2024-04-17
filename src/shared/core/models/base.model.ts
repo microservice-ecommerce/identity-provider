@@ -1,8 +1,10 @@
-import { IModelBase } from '@high3ar/common-api';
-import { BeforeInsert, BeforeUpdate, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { DatabaseColumn } from '../constants/database.constant';
 
-export abstract class BaseModel implements IModelBase {
+interface IBaseAuditModel {
+  createdDate?: Date;
+  modifiedDate?: Date;
+}
+export abstract class BaseAuditModel implements IBaseAuditModel {
   createdDate: Date;
 
   modifiedDate: Date;

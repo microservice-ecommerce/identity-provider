@@ -50,6 +50,7 @@ export class InfoUserRequest {
 
   public static toModel(request: InfoUserRequest, account: AccountModel): InfoUserModel {
     return Builder(InfoUserModel)
+      .id(account.id)
       .account(account)
       .address(request.address)
       .dateOfBirth(request.dateOfBirth)

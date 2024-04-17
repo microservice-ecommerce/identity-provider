@@ -12,7 +12,7 @@ export class AccountEntity extends ModelBaseEntity implements IAccount {
     Object.assign(this, props);
   }
 
-  @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_ACCOUNT })
+  @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_USER })
   id: number;
 
   @OneToOne(() => InfoUserEntity, (user) => user.account, { eager: true })

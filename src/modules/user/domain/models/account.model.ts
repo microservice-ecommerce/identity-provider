@@ -1,8 +1,8 @@
-import { BaseModel } from '@shared/core/models';
+import { BaseAuditModel } from '@shared/core/models';
 import { IAccount } from '../interfaces';
 import { InfoUserModel } from './info-user.model';
 
-export class AccountModel extends BaseModel implements IAccount {
+export class AccountModel extends  BaseAuditModel implements IAccount {
   id?: number;
   email: string;
   user?: InfoUserModel;
