@@ -1,16 +1,4 @@
-import { DatabaseColumn } from '../constants/database.constant';
-
-interface IBaseAuditModel {
-  createdDate?: Date;
-  modifiedDate?: Date;
-}
-export abstract class BaseAuditModel implements IBaseAuditModel {
-  createdDate: Date;
-
-  modifiedDate: Date;
-
-  constructor(createdDate: Date, modifiedDate: Date) {
-    this.createdDate = createdDate;
-    this.modifiedDate = modifiedDate;
-  }
+import { IAuditBase } from '../interfaces/audit.interface';
+import { BaseModel } from '@high3ar/common-api';
+export abstract class AuditModelBase extends BaseModel implements IAuditBase {
 }

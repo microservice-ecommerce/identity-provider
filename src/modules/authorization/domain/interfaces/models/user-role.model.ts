@@ -1,6 +1,5 @@
-
-import { IModelBase } from '@high3ar/common-api';
-export interface IUserRole extends IModelBase{
+import { IAuditBase } from '@shared/core/interfaces';
+export interface IUserRole extends IAuditBase {
   id?: number;
-  roleDescription?: string;
+  description?: string;
 }

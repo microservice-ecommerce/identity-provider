@@ -1,6 +1,6 @@
-import { IModelBase } from '@high3ar/common-api';
+import { IAuditBase } from '@shared/core/interfaces';
 import { IAccount } from './account.interface';
-export interface IInfoUser extends IModelBase {
+export interface IInfoUser extends IAuditBase {
   id?: number;
   account: IAccount;
   name: string;

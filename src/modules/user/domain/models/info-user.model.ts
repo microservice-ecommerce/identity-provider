@@ -1,9 +1,9 @@
 import { InfoUserRequest } from '@user/domain/dtos';
 import { IInfoUser } from '../interfaces';
 import { AccountModel } from './account.model';
-import { BaseAuditModel } from '@shared/core/models';
+import { AuditModelBase } from '@shared/core/models';
 
-export class InfoUserModel extends BaseAuditModel implements IInfoUser {
+export class InfoUserModel extends AuditModelBase implements IInfoUser {
   id?: number;
   account: AccountModel;
   name: string;
