@@ -1,7 +1,6 @@
-
-import { IModelBase } from '@high3ar/common-api';
+import { IAuditSoftDeleteBase } from '@shared/core/interfaces';
 import { UserModule } from '@user/user.module';
-export interface IAccount extends IModelBase{
+export interface IAccount extends IAuditSoftDeleteBase {
   id?: number;
   email: string;
   user?: UserModule;

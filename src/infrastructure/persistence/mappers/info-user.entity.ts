@@ -1,12 +1,11 @@
-import { ModelBaseEntity } from '@shared/core/entities';
+import { AuditSoftDeleteBaseEntity } from '@shared/core/entities';
 import { IInfoUser } from '@user/domain/interfaces';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { InfoUserRequest } from '../../../modules/user/domain/dtos';
 import { DatabaseColumn } from '../../../shared/core/constants/database.constant';
 import { TableName } from '../../../shared/core/constants/table-name.constant';
 import { AccountEntity } from './account.entity';
 @Entity(TableName.INFO_USER)
-export class InfoUserEntity extends ModelBaseEntity implements IInfoUser {
+export class InfoUserEntity extends AuditSoftDeleteBaseEntity implements IInfoUser {
   constructor(props: IInfoUser) {
     super();
     Object.assign(this, props);

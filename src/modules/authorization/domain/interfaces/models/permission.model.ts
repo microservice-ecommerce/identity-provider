@@ -1,6 +1,6 @@
+import { IAuditBase } from '@shared/core/interfaces';
 
-import { IModelBase } from '@high3ar/common-api';
-export interface IPermissionModel extends IModelBase{
+export interface IPermissionModel extends IAuditBase {
   id?: number;
-  permissionDescription?: string;
+  description?: string;
 }

@@ -13,6 +13,7 @@ CREATE TABLE id_account (
     dt_modified_date DATETIME NULL,
     dt_password_changed DATETIME NULL,
     dt_last_login DATETIME NULL,
+    bool_is_delete boolean DEFAULT false,
     CONSTRAINT `id_account_PK_int_account_id` PRIMARY KEY (int_account_id)
 );
 
@@ -27,6 +28,7 @@ CREATE TABLE id_info_user (
     str_address VARCHAR(60) NOT NULL,
     dt_created_date DATETIME NULL,
     dt_modified_date DATETIME NULL,
+    bool_is_delete boolean DEFAULT false,
     CONSTRAINT `id_user_PK_int_user_id`  PRIMARY KEY (int_user_id),
     CONSTRAINT `id_user_FK_int_account_id` FOREIGN KEY (`int_account_id`) REFERENCES `id_account` (`int_account_id`)
 );

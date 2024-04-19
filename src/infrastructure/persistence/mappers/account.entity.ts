@@ -1,12 +1,12 @@
-import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { DatabaseColumn } from '../../../shared/core/constants/database.constant';
-import { TableName } from '../../../shared/core/constants/table-name.constant';
-import { IAccount } from '../../../modules/user/domain/interfaces';
-import { InfoUserEntity } from './info-user.entity';
+import { AuditSoftDeleteBaseEntity } from '@shared/core/entities';
 import * as bcrypt from 'bcrypt';
-import { ModelBaseEntity } from '@shared/core/entities';
+import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { IAccount } from '@user/domain/interfaces';
+import { DatabaseColumn } from '@shared/core/constants/database.constant';
+import { TableName } from '@shared/core/constants/table-name.constant';
+import { InfoUserEntity } from './info-user.entity';
 @Entity(TableName.ACCOUNT)
-export class AccountEntity extends ModelBaseEntity implements IAccount {
+export class AccountEntity extends AuditSoftDeleteBaseEntity implements IAccount {
   constructor(props: IAccount) {
     super();
     Object.assign(this, props);
