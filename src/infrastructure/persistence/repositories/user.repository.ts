@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseAbstractRepository } from '@shared/repositories/base.repository';
-import { AccountModel, InfoUserModel } from '@user/domain/models';
+import { AccountModel, UserModel } from '@user/domain/models';
 import { Repository } from 'typeorm';
 import { IUserPort } from '../../../modules/user/domain/ports';
-import { AccountEntity, InfoUserEntity } from '../mappers';
+import { AccountEntity, UserEntity } from '../mappers';
 
 @Injectable()
-export class UserRepository extends BaseAbstractRepository<InfoUserEntity, InfoUserModel> implements IUserPort {
+export class UserRepository extends BaseAbstractRepository<UserEntity, UserModel> implements IUserPort {
   constructor(
-    @InjectRepository(InfoUserEntity)
-    private readonly _userRepository: Repository<InfoUserEntity>,
+    @InjectRepository(UserEntity)
+    private readonly _userRepository: Repository<UserEntity>,
   ) {
     super(_userRepository);
   }
 
-  public async findOneById(id: number): Promise<InfoUserModel | null> {
+  public async findOneById(id: number): Promise<UserModel | null> {
     const entity = await this._userRepository.findOne({
       where: {
         id,
@@ -25,7 +25,7 @@ export class UserRepository extends BaseAbstractRepository<InfoUserEntity, InfoU
     return entity ? this.toModel(entity) : null;
   }
 
-  public toModel(entity: InfoUserEntity): InfoUserModel {
+  public toModel(entity: UserEntity): UserModel {
     return {
       id: entity.id,
       account: {
@@ -39,10 +39,10 @@ export class UserRepository extends BaseAbstractRepository<InfoUserEntity, InfoU
       address: entity.address,
       createdDate: entity.createdDate,
       modifiedDate: entity.modifiedDate,
-    } as InfoUserModel;
+    } as UserModel;
   }
 
-  public toEntity(model: InfoUserModel): InfoUserEntity {
+  public toEntity(model: UserModel): UserEntity {
     const object = {
       id: model.id,
       account: {
@@ -54,7 +54,8 @@ export class UserRepository extends BaseAbstractRepository<InfoUserEntity, InfoU
       gender: model.gender,
       name: model.name,
       phoneNumber: model.phoneNumber,
+      userToRole : null,
     };
-    return new InfoUserEntity(object);
+    return new UserEntity(object);
   }
 }

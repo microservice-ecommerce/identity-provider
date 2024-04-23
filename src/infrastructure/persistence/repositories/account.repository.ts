@@ -5,7 +5,7 @@ import { IAccountPort } from '@user/domain/ports';
 import { Builder } from 'builder-pattern';
 import { BaseAbstractRepository } from 'src/shared/repositories/base.repository';
 import { Repository, getRepository } from 'typeorm';
-import { AccountEntity, InfoUserEntity } from '../mappers';
+import { AccountEntity, UserEntity } from '../mappers';
 import { UserRepository } from './user.repository';
 
 @Injectable()

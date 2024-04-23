@@ -1,9 +1,9 @@
 import { IAuditSoftDeleteBase } from '@shared/core/interfaces';
-import { UserModule } from '@user/user.module';
+import { IUser } from './user.interface';
 export interface IAccount extends IAuditSoftDeleteBase {
   id?: number;
   email: string;
-  user?: UserModule;
+  user?: IUser;
   password: string;
   salt: string;
   lastLoginIp: string;

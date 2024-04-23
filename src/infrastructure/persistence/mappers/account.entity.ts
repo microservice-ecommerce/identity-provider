@@ -1,10 +1,10 @@
+import { ColumnName } from '@shared/core/constants/database.constant';
+import { TableName } from '@shared/core/constants/table-name.constant';
 import { AuditSoftDeleteBaseEntity } from '@shared/core/entities';
+import { IAccount, IUser } from '@user/domain/interfaces';
 import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { IAccount } from '@user/domain/interfaces';
-import { DatabaseColumn } from '@shared/core/constants/database.constant';
-import { TableName } from '@shared/core/constants/table-name.constant';
-import { InfoUserEntity } from './info-user.entity';
+import { UserEntity } from './user.entity';
 @Entity(TableName.ACCOUNT)
 export class AccountEntity extends AuditSoftDeleteBaseEntity implements IAccount {
   constructor(props: IAccount) {
@@ -12,29 +12,29 @@ export class AccountEntity extends AuditSoftDeleteBaseEntity implements IAccount
     Object.assign(this, props);
   }
 
-  @PrimaryGeneratedColumn({ name: DatabaseColumn.ID_USER })
+  @PrimaryGeneratedColumn({ name: ColumnName.ID_USER })
   id: number;
 
-  @OneToOne(() => InfoUserEntity, (user) => user.account, { eager: true })
-  user: InfoUserEntity;
+  @OneToOne(() => UserEntity, (user) => user.account, { eager: true })
+  user: IUser;
 
   @Unique(['email'])
-  @Column({ name: DatabaseColumn.EMAIL })
+  @Column({ name: ColumnName.EMAIL })
   email: string;
 
-  @Column({ name: DatabaseColumn.PASSWORD })
+  @Column({ name: ColumnName.PASSWORD })
   password: string;
 
-  @Column({ name: DatabaseColumn.SALT })
+  @Column({ name: ColumnName.SALT })
   salt: string;
 
-  @Column({ name: DatabaseColumn.LAST_LOGIN_IP })
+  @Column({ name: ColumnName.LAST_LOGIN_IP })
   lastLoginIp: string;
 
-  @Column({ name: DatabaseColumn.PASSWORD_CHANGED })
+  @Column({ name: ColumnName.PASSWORD_CHANGED })
   passwordChanged: Date;
 
-  @Column({ name: DatabaseColumn.LAST_LOGIN })
+  @Column({ name: ColumnName.LAST_LOGIN })
   lastLogin: Date;
 
   @BeforeInsert()

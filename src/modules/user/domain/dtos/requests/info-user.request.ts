@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AccountModel, InfoUserModel } from '@user/domain/models';
+import { AccountModel, UserModel } from '@user/domain/models';
 import { Builder } from 'builder-pattern';
 import { IsBoolean, IsDateString, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
@@ -48,8 +48,8 @@ export class InfoUserRequest {
   })
   address: string;
 
-  public static toModel(request: InfoUserRequest, account: AccountModel): InfoUserModel {
-    return Builder(InfoUserModel)
+  public static toModel(request: InfoUserRequest, account: AccountModel): UserModel {
+    return Builder(UserModel)
       .id(account.id)
       .account(account)
       .address(request.address)
