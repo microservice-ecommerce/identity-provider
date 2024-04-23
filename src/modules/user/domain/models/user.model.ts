@@ -1,9 +1,10 @@
 import { InfoUserRequest } from '@user/domain/dtos';
-import { IInfoUser } from '../interfaces';
+import { IUser } from '../interfaces';
 import { AccountModel } from './account.model';
 import { AuditModelBase } from '@shared/core/models';
+import { UserToRoleModel } from '@authorization/domain/models/user-to-role.model';
 
-export class InfoUserModel extends AuditModelBase implements IInfoUser {
+export class UserModel extends AuditModelBase implements IUser {
   id?: number;
   account: AccountModel;
   name: string;
@@ -11,6 +12,7 @@ export class InfoUserModel extends AuditModelBase implements IInfoUser {
   dateOfBirth: Date;
   gender: boolean;
   address: string;
+  userToRole: UserToRoleModel[];
 
   constructor(
     account: AccountModel,

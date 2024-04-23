@@ -1,11 +1,11 @@
 import { AuditModelBase } from '@shared/core/models';
 import { IAccount } from '../interfaces';
-import { InfoUserModel } from './info-user.model';
+import { UserModel } from './user.model';
 
 export class AccountModel extends AuditModelBase implements IAccount {
   id?: number;
   email: string;
-  user?: InfoUserModel;
+  user?: UserModel;
   password: string;
   salt: string;
   lastLoginIp: string;
@@ -22,7 +22,7 @@ export class AccountModel extends AuditModelBase implements IAccount {
     createdDate: Date = new Date(),
     updatedDate: Date = new Date(),
     id?: number,
-    user?: InfoUserModel,
+    user?: UserModel,
   ) {
     super(createdDate, updatedDate);
     this.id = id;

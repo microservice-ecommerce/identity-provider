@@ -1,13 +1,13 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountEntity, InfoUserEntity } from '@infrastructure/persistence/mappers';
+import { AccountEntity, UserEntity } from '@infrastructure/persistence/mappers';
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '@user/domain/token';
 import { AccountRepository } from './account.repository';
 import { UserRepository } from './user.repository';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity, InfoUserEntity])],
+  imports: [TypeOrmModule.forFeature([AccountEntity, UserEntity])],
   providers: [
     {
       provide: ACCOUNT_REPOSITORY,

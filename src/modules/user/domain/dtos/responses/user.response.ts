@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AccountModel, InfoUserModel } from '@user/domain/models';
+import { AccountModel, UserModel } from '@user/domain/models';
 import { AccountResponse } from './account.response';
 import { InfoUserResponse } from './info-user.response';
 export class UserResponse {
@@ -15,7 +15,7 @@ export class UserResponse {
   })
   infoUser: InfoUserResponse;
 
-  constructor(user: InfoUserModel, account: AccountModel) {
+  constructor(user: UserModel, account: AccountModel) {
     this.account = new AccountResponse(account);
     this.infoUser = new InfoUserResponse(user);
   }

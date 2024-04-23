@@ -1,3 +1,4 @@
-export * from './user-role.model';
-export * from './permission.model';
-export * from './url.model';
+export * from './role.interface';
+export * from './permission.interface';
+export * from './account-to-role.interface';
+export * from './role-to-permission.interface';

@@ -1,5 +1,5 @@
 import { BaseInterfaceRepository } from '@shared/repositories/base.interface';
-import { InfoUserEntity } from '../../../../infrastructure/persistence/mappers';
-import { AccountModel, InfoUserModel } from '../models';
+import { UserEntity } from '../../../../infrastructure/persistence/mappers';
+import { AccountModel, UserModel } from '../models';
 
-export interface IUserPort extends BaseInterfaceRepository<InfoUserEntity, InfoUserModel> {}
+export interface IUserPort extends BaseInterfaceRepository<UserEntity, UserModel> {}

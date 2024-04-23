@@ -1,11 +1,11 @@
-import { AccountModel, InfoUserModel } from "@user/domain/models";
+import { AccountModel, UserModel } from '@user/domain/models';
 
 export class UserPayload {
   account: AccountModel;
 
-  infoUser: InfoUserModel;
+  infoUser: UserModel;
 
-  constructor(infoUser: InfoUserModel, account: AccountModel) {
+  constructor(infoUser: UserModel, account: AccountModel) {
     this.account = account;
     this.infoUser = infoUser;
   }

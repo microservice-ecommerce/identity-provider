@@ -1,9 +1,9 @@
 import { H3Logger } from '@high3ar/common-api';
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { AccountRequest, InfoUserRequest, UserPayload, UserRequest, UserResponse } from '@user/domain/dtos';
 import { IUserUseCase } from '@user/domain/interfaces';
 import { IAccountPort, IUserPort } from '@user/domain/ports';
 import { ACCOUNT_REPOSITORY, USER_REPOSITORY } from '@user/domain/token';
-import { AccountRequest, InfoUserRequest, UserPayload, UserRequest, UserResponse } from '@user/domain/dtos';
 import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
@@ -27,10 +27,10 @@ export class UserService implements IUserUseCase {
     let accountModel = AccountRequest.toModel(account);
     accountModel = await this._accountRepository.save(accountModel);
 
-    let infoUserModel = InfoUserRequest.toModel(infoUser, accountModel);
-    infoUserModel = await this._userRepository.save(infoUserModel);
+    let UserModel = InfoUserRequest.toModel(infoUser, accountModel);
+    UserModel = await this._userRepository.save(UserModel);
 
-    return new UserPayload(infoUserModel, accountModel);
+    return new UserPayload(UserModel, accountModel);
   }
 
   @Transactional()

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { InfoUserEntity } from '@infrastructure/persistence/mappers';
-import { InfoUserModel } from '@user/domain/models';
+import { UserEntity } from '@infrastructure/persistence/mappers';
+import { UserModel } from '@user/domain/models';
 
 export class InfoUserResponse {
   @ApiProperty({
@@ -38,7 +38,7 @@ export class InfoUserResponse {
   })
   address: string;
 
-  constructor(entity: InfoUserModel) {
+  constructor(entity: UserModel) {
     this.name = entity.name;
     this.phoneNumber = entity.phoneNumber;
     this.dateOfBirth = entity.dateOfBirth;
