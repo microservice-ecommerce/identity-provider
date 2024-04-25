@@ -1,5 +1,5 @@
 import { AES256Helper } from '@high3ar/common-api';
-import { nowTimeNumber } from '@shared/utils/now-time-number';
+import { nowTimeNumber } from '@shared/application/utils/now-time-number';
 import { uuid } from 'uuidv4';
 import { BaseTokenClaimPayload } from './token-claim.payload';
 

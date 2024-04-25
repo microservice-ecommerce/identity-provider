@@ -1,6 +1,6 @@
-import { ColumnName } from '@shared/core/constants/database.constant';
-import { TableName } from '@shared/core/constants/table-name.constant';
-import { AuditSoftDeleteBaseEntity } from '@shared/core/entities';
+import { ColumnName } from '@shared/domain/constants/database.constant';
+import { TableName } from '@shared/domain/constants/table-name.constant';
+import { AuditSoftDeleteBaseEntity } from '@shared/domain/entities';
 import { IAccount, IUser } from '@user/domain/interfaces';
 import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';

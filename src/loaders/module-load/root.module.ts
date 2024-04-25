@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { ServiceModule } from './service.module'
+import { ServiceModule } from './service-module'
 import { InfrastructureModule } from '../../infrastructure/infrastructure.module'
 
 @Module({

@@ -1,8 +1,8 @@
 import { IUserToRole } from '@authorization/domain/interfaces';
-import { ColumnName } from '@shared/core/constants/database.constant';
-import { TableName } from '@shared/core/constants/table-name.constant';
-import { AuditBaseEntity } from '@shared/core/entities';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ColumnName } from '@shared/domain/constants/database.constant';
+import { TableName } from '@shared/domain/constants/table-name.constant';
+import { AuditBaseEntity } from '@shared/domain/entities';
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { UserEntity } from './user.entity';
 

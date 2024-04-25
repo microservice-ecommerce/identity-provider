@@ -22,6 +22,7 @@
       "@user/*": ["src/modules/user/*"],
       "@auth/*": ["src/modules/auth/*"],
       "@authorization/*": ["src/modules/authorization/*"],
+      "@service/*": ["src/modules/service/*"],
       "@shared/*": ["src/shared/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }

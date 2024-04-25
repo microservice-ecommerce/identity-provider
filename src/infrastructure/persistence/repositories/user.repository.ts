@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BaseAbstractRepository } from '@shared/repositories/base.repository';
+import { BaseAbstractRepository } from '@shared/infrastructure/repositories/base.repository';
 import { AccountModel, UserModel } from '@user/domain/models';
 import { Repository } from 'typeorm';
 import { IUserPort } from '../../../modules/user/domain/ports';
@@ -54,7 +54,7 @@ export class UserRepository extends BaseAbstractRepository<UserEntity, UserModel
       gender: model.gender,
       name: model.name,
       phoneNumber: model.phoneNumber,
-      userToRole : null,
+      userToRole: null,
     };
     return new UserEntity(object);
   }

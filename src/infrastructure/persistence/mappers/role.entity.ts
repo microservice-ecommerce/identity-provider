@@ -1,10 +1,10 @@
 import { IRole } from '@authorization/domain/interfaces';
-import { ColumnName } from '@shared/core/constants/database.constant';
-import { TableName } from '@shared/core/constants/table-name.constant';
-import { AuditBaseEntity } from '@shared/core/entities';
+import { ColumnName } from '@shared/domain/constants/database.constant';
+import { TableName } from '@shared/domain/constants/table-name.constant';
+import { AuditBaseEntity } from '@shared/domain/entities';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserToRoleEntity } from './user-to-role.entity';
 import { RoleToPermissionEntity } from './role-to-permission.entity';
+import { UserToRoleEntity } from './user-to-role.entity';
 
 @Entity(TableName.ROLE)
 export class RoleEntity extends AuditBaseEntity implements IRole {

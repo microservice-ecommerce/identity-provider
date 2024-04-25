@@ -38,4 +38,8 @@ export class ColumnName {
   public static readonly DESCRIPTION = 'str_description';
 
   public static readonly DELETE_AT = 'dt_delete_at';
+
+  public static readonly ID_SERVICE = 'int_service_id';
+
+  public static readonly SERVICE_NAME = 'str_service_name';
 }

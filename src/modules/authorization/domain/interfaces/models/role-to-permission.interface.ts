@@ -1,4 +1,4 @@
-import { IAuditBase } from '@shared/core/interfaces';
+import { IAuditBase } from '@shared/domain/interfaces';
 import { IPermission } from './permission.interface';
 import { IRole } from './role.interface';
 export interface IRoleToPermission extends IAuditBase {

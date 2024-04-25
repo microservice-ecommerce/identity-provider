@@ -1,4 +1,4 @@
-import { AuditModelBase } from '@shared/core/models';
+import { AuditModelBase } from '@shared/domain/models';
 import { IUser } from '@user/domain/interfaces';
 import { IRole, IUserToRole } from '../interfaces';
 

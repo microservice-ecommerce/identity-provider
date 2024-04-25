@@ -1,4 +1,4 @@
-import { BaseInterfaceRepository } from 'src/shared/repositories/base.interface';
+import { BaseInterfaceRepository } from '@shared/infrastructure/repositories/base.interface';
 import { AccountEntity } from '../../../../infrastructure/persistence/mappers';
 import { AccountModel } from '../models';
 

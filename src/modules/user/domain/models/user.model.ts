@@ -1,7 +1,7 @@
 import { InfoUserRequest } from '@user/domain/dtos';
 import { IUser } from '../interfaces';
 import { AccountModel } from './account.model';
-import { AuditModelBase } from '@shared/core/models';
+import { AuditModelBase } from '@shared/domain/models';
 import { UserToRoleModel } from '@authorization/domain/models/user-to-role.model';
 
 export class UserModel extends AuditModelBase implements IUser {

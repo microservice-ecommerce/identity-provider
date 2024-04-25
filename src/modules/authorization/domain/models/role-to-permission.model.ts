@@ -1,4 +1,4 @@
-import { AuditModelBase } from '@shared/core/models';
+import { AuditModelBase } from '@shared/domain/models';
 import { IPermission, IRole, IRoleToPermission } from '../interfaces';
 
 export class RoleToPermissionModel extends AuditModelBase implements IRoleToPermission {
