@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
 import Redis from 'ioredis';
 import { IdentityProviderConfig } from 'src/infrastructure/configuration/identity-provider.config';
-import { KeyType } from '../core/enums/key-type.enum';
-import { CacheExpired } from '@shared/core/constants/cache-expired.constant';
+import { KeyType } from '../../domain/enums/key-type.enum';
+import { CacheExpired } from '@shared/domain/constants/cache-expired.constant';
 
 export class CacheService {
   private _commands = ['BF.ADD', 'BF.EXISTS', 'BF.RESERVE'];

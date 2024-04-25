@@ -1,11 +1,11 @@
-import { AuditSoftDeleteBaseEntity } from '@shared/core/entities';
+import { AuditSoftDeleteBaseEntity } from '@shared/domain/entities';
 import { IUser } from '@user/domain/interfaces';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { ColumnName } from '../../../shared/core/constants/database.constant';
-import { TableName } from '../../../shared/core/constants/table-name.constant';
+import { ColumnName } from '../../../shared/domain/constants/database.constant';
+import { TableName } from '../../../shared/domain/constants/table-name.constant';
 import { AccountEntity } from './account.entity';
 import { UserToRoleEntity } from './user-to-role.entity';
-@Entity(TableName.INFO_USER)
+@Entity(TableName.USER)
 export class UserEntity extends AuditSoftDeleteBaseEntity implements IUser {
   constructor(props: IUser) {
     super();

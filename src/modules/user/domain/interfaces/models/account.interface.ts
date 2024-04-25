@@ -1,4 +1,4 @@
-import { IAuditSoftDeleteBase } from '@shared/core/interfaces';
+import { IAuditSoftDeleteBase } from '@shared/domain/interfaces';
 import { IUser } from './user.interface';
 export interface IAccount extends IAuditSoftDeleteBase {
   id?: number;

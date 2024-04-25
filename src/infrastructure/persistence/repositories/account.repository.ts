@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AccountModel } from '@user/domain/models';
 import { IAccountPort } from '@user/domain/ports';
 import { Builder } from 'builder-pattern';
-import { BaseAbstractRepository } from 'src/shared/repositories/base.repository';
+import { BaseAbstractRepository } from '@shared/infrastructure/repositories/base.repository';
 import { Repository, getRepository } from 'typeorm';
 import { AccountEntity, UserEntity } from '../mappers';
 import { UserRepository } from './user.repository';

@@ -1,7 +1,7 @@
 import { IRoleToPermission } from '@authorization/domain/interfaces';
-import { ColumnName } from '@shared/core/constants/database.constant';
-import { TableName } from '@shared/core/constants/table-name.constant';
-import { AuditBaseEntity } from '@shared/core/entities';
+import { ColumnName } from '@shared/domain/constants/database.constant';
+import { TableName } from '@shared/domain/constants/table-name.constant';
+import { AuditBaseEntity } from '@shared/domain/entities';
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PermissionEntity } from './permission.entity';
 import { RoleEntity } from './role.entity';

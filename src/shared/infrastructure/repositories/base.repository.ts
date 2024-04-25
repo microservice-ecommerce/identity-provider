@@ -50,9 +50,6 @@ export abstract class BaseAbstractRepository<T, M> implements BaseInterfaceRepos
     return await this.entity.delete(id);
   }
 
-  public async getTest(): Promise<string> {
-    return 'asdasdas';
-  }
 
   protected abstract toModel(entity: T): M;
 
