@@ -7,7 +7,7 @@ import * as process from 'node:process';
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { IdentityProviderConfig } from '../infrastructure/configuration/identity-provider.config';
-import { RootModule } from './module-load/root.module';
+import { RootModule } from './root.module';
 import * as cookieParser from 'cookie-parser';
 
 export class ServerApplication {
@@ -43,13 +43,13 @@ export class ServerApplication {
   }
 
   private printEnv(): void {
-    console.log("===================== ENV ================");
+    console.log('===================== ENV ================');
     for (const key in IdentityProviderConfig) {
       if (IdentityProviderConfig.hasOwnProperty(key)) {
         console.log(`${key}: ${IdentityProviderConfig[key]}`);
       }
     }
-    console.log("========================================");
+    console.log('========================================');
   }
   private registerSwagger(app: NestExpressApplication): void {
     const options = new DocumentBuilder()

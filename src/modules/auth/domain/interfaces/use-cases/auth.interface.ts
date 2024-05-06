@@ -7,4 +7,5 @@ export interface IAuthUseCase {
   register(request: UserRequest): Promise<UserResponse>;
   refreshToken(req: Request): Promise<TokenResponse>;
   logout(req: Request): Promise<void>;
+  check(req: Request): Promise<object>;
 }

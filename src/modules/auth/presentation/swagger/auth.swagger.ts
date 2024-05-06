@@ -21,4 +21,9 @@ export const AuthSwagger = {
     summary: 'Logout',
     description: 'Logout Successful.',
   },
+  check: {
+    url: 'check',
+    summary: 'Check access token',
+    description: 'Check access token'
+  },
 };

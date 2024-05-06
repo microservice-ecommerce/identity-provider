@@ -74,6 +74,17 @@ export class AuthService implements IAuthUseCase {
     this._authHelper.revokeToken(decodeAccessToken.jti, KeyType.ACCESS_TOKEN);
   }
 
+  public async check(@Req() req: Request): Promise<object> {
+    const accessToken = req.cookies[IdentityProviderConstant.NAME_ACCESS_TOKEN];
+    if (!accessToken) {
+      H3Logger.error('Access token not found');
+      throw new UnauthorizedException('Access token not found');
+    }
+
+    const decodeAccessToken = await this._authHelper.verifyAccessToken(accessToken);
+    return decodeAccessToken;
+
+  }
   private async _comparedPassword(password: string, user: UserPayload): Promise<boolean> {
     return bcrypt.compare(password, user.account.password);
   }

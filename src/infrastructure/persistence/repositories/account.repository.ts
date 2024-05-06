@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseAbstractRepository } from '@shared/infrastructure/repositories/base.repository';
 import { AccountModel } from '@user/domain/models';
 import { IAccountPort } from '@user/domain/ports';
-import { Builder } from 'builder-pattern';
-import { BaseAbstractRepository } from '@shared/infrastructure/repositories/base.repository';
-import { Repository, getRepository } from 'typeorm';
-import { AccountEntity, UserEntity } from '../mappers';
-import { UserRepository } from './user.repository';
+import { Repository } from 'typeorm';
+import { AccountEntity } from '../mappers';
 
 @Injectable()
 export class AccountRepository extends BaseAbstractRepository<AccountEntity, AccountModel> implements IAccountPort {

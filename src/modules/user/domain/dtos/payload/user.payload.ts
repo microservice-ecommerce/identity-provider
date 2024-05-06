@@ -5,6 +5,7 @@ export class UserPayload {
 
   infoUser: UserModel;
 
+
   constructor(infoUser: UserModel, account: AccountModel) {
     this.account = account;
     this.infoUser = infoUser;
