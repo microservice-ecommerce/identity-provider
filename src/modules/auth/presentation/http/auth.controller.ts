@@ -1,7 +1,7 @@
 import { IAuthUseCase } from '@auth/domain/interfaces';
 import { AUTH_SERVICE } from '@auth/domain/token';
 import { CoreApiResponse, H3Logger } from '@high3ar/common-api';
-import { Body, Controller, Delete, Inject, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Post, Req } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UserRequest, UserResponse } from '@user/domain/dtos';
@@ -52,6 +52,19 @@ export class AuthController {
     const response = await this._authService.refreshToken(req);
     H3Logger.info('req :: POST ::  refresh token');
     return CoreApiResponse.success(response);
+  }
+
+  @Get(AuthSwagger.check.url)
+  @ApiOperation({
+    summary: AuthSwagger.check.summary,
+    description: AuthSwagger.check.description
+  })
+  async check(@Req() request): Promise<CoreApiResponse<object>> {
+    H3Logger.info('req :: GET :: check')
+    const decodedHeaders = await this._authService.check(request)
+    H3Logger.info('req :: GET :: check')
+
+    return CoreApiResponse.success(decodedHeaders)
   }
 
   @Delete(AuthSwagger.logout.url)

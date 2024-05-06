@@ -1,2 +1,0 @@
-export const APP_SERVICE_SERVICE = 'APP_SERVICE_SERVICE'; // APPLICATION SERVICE IS service in microservice
-export const APP_SERVICE_REPOSITORY = 'APP_SERVICE_REPOSITORY'; // APPLICATION SERVICE IS service in microservice

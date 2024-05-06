@@ -4,7 +4,6 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import { ColumnName } from '../../../shared/domain/constants/database.constant';
 import { TableName } from '../../../shared/domain/constants/table-name.constant';
 import { AccountEntity } from './account.entity';
-import { UserToRoleEntity } from './user-to-role.entity';
 @Entity(TableName.USER)
 export class UserEntity extends AuditSoftDeleteBaseEntity implements IUser {
   constructor(props: IUser) {
@@ -33,7 +32,4 @@ export class UserEntity extends AuditSoftDeleteBaseEntity implements IUser {
 
   @Column({ name: ColumnName.ADDRESS })
   address: string;
-
-  @OneToMany(() => UserToRoleEntity, (userToRole) => userToRole.user)
-  userToRole: UserToRoleEntity[];
 }
