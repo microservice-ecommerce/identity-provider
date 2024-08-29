@@ -146,6 +146,9 @@ $$
 
 
 
+### Clean Architecture
+![image](https://github.com/user-attachments/assets/22a8adc2-9cdb-4557-9dbc-b62495bccf5f)
+
 
 ## API DESIGN 
 
@@ -307,6 +310,4 @@ $$
     - **Description:** Other server-side errors.
 
 
-### Clean Architecture
-![image](https://github.com/user-attachments/assets/22a8adc2-9cdb-4557-9dbc-b62495bccf5f)
 
