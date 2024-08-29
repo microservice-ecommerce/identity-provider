@@ -308,4 +308,5 @@ $$
 
 
 ### Clean Architecture
-https://yoan-thirion.gitbook.io/knowledge-base/software-craftsmanship/code-katas/clean-architecture
+![image](https://github.com/user-attachments/assets/22a8adc2-9cdb-4557-9dbc-b62495bccf5f)
+
